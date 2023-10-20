@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import InventoryLayout from './components/InventoryLayout'
 import UserLogin from './components/UserLogin'
 
-export enum Role {
+enum Role {
   ADMIN = 'admin',
   USER = 'user',
 }

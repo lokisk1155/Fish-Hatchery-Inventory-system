@@ -1,9 +1,14 @@
 'use client'
 import { signOut } from 'next-auth/react'
 import { MouseEvent } from 'react'
-import { SessionUser, Role } from '../page'
+import { SessionUser } from '../page'
 import AdminLayout from './AdminLayout'
 import UserLayout from './UserLayout'
+
+enum Role {
+  ADMIN = 'admin',
+  USER = 'user',
+}
 
 interface Props {
   user: SessionUser
