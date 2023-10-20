@@ -1,6 +1,5 @@
 import { Role, SessionUser } from 'interfaces/session'
 import { RecordedFishData } from 'mockData/fish'
-import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import TimelineIndex from './TimelineIndex'
 
@@ -17,7 +16,7 @@ enum ToggleState {
 }
 
 export default function Timeline({ recordedFishData, authenticated, user }: Props) {
-  let role = Role.USER
+  let role = Role.GUEST
   if (authenticated && user) {
     role = user.role
   }
@@ -45,7 +44,7 @@ export default function Timeline({ recordedFishData, authenticated, user }: Prop
     ),
   }
 
-  const buttonMapping = [
+  const filterButtonsData = [
     { state: ToggleState.RECENT, label: 'most recent' },
     { state: ToggleState.DATED, label: 'most dated' },
     { state: ToggleState.POPULAR, label: 'most caught' },
@@ -55,7 +54,8 @@ export default function Timeline({ recordedFishData, authenticated, user }: Prop
     <>
       <div className="w-full divide-y divide-gray-200 dark:divide-gray-700">
         <div className="items-start space-y-2 xl:gap-x-8 xl:space-y-0">
-          {buttonMapping.map(({ state, label }) => (
+          {/* sort fish buttons */}
+          {filterButtonsData.map(({ state, label }) => (
             <button
               key={state}
               className={`${
