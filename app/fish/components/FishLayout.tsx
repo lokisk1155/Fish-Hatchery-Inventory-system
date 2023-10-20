@@ -13,7 +13,7 @@ export default function FishLayout() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
-    }, 800)
+    }, 850)
   }, [])
   return (
     <>
