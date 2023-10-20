@@ -12,7 +12,7 @@ interface Props {
 
 export default function TimelineIndex({ fishData, href, countMap, role }: Props) {
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log('edit')
+    console.log('delete')
   }
 
   const handleEdit = (e: MouseEvent<HTMLButtonElement>) => {
