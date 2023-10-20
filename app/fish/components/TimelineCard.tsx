@@ -1,6 +1,7 @@
+'use client'
+
 import CustomLink from '@/components/Link'
 import { RecordedFishData } from 'mockData/fish'
-import React from 'react'
 
 interface Props {
   fishData: RecordedFishData
@@ -8,12 +9,9 @@ interface Props {
   countMap: { [key: string]: number }
 }
 
-export default function TimelineIndex({ fishData, href, countMap }: Props) {
+export default function TimelineCard({ fishData, href, countMap }: Props) {
   return (
-    <CustomLink
-      className="w-full flex items-center p-2 border border-gray-300 rounded-md my-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-bg-colors"
-      href={href}
-    >
+    <CustomLink className="w-3/4 flex items-center p-2" href={href}>
       <img
         src={fishData.images}
         alt={fishData.name}

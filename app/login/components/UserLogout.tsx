@@ -1,20 +1,8 @@
 'use client'
 import { signOut } from 'next-auth/react'
 import { MouseEvent } from 'react'
-import { SessionUser } from '../page'
-import AdminLayout from './AdminLayout'
-import UserLayout from './UserLayout'
 
-enum Role {
-  ADMIN = 'admin',
-  USER = 'user',
-}
-
-interface Props {
-  user: SessionUser
-}
-
-export default function InventoryLayout({ user }: Props) {
+export default function UserLogout() {
   const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     await signOut()
@@ -27,7 +15,6 @@ export default function InventoryLayout({ user }: Props) {
       >
         logout
       </button>
-      {user.role === Role.ADMIN ? <AdminLayout user={user} /> : <UserLayout user={user} />}
     </>
   )
 }

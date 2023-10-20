@@ -1,9 +1,12 @@
+import { Role, SessionUser } from 'interfaces/session'
 import { RecordedFishData } from 'mockData/fish'
 import { useState } from 'react'
 import TimelineIndex from './TimelineIndex'
 
 interface Props {
   recordedFishData: Array<RecordedFishData>
+  authenticated: boolean
+  user: SessionUser | null
 }
 
 enum ToggleState {
@@ -12,7 +15,12 @@ enum ToggleState {
   POPULAR = 'POPULAR',
 }
 
-export default function Timeline({ recordedFishData }: Props) {
+export default function Timeline({ recordedFishData, authenticated, user }: Props) {
+  let role = Role.GUEST
+  if (authenticated && user) {
+    role = user.role
+  }
+
   const [toggle, setToggle] = useState<ToggleState>(ToggleState.RECENT)
   const map: { [key: string]: number } = {}
   /* individual_tracking_code = number of times it has appeared */
@@ -36,7 +44,7 @@ export default function Timeline({ recordedFishData }: Props) {
     ),
   }
 
-  const buttonMapping = [
+  const filterButtonsData = [
     { state: ToggleState.RECENT, label: 'most recent' },
     { state: ToggleState.DATED, label: 'most dated' },
     { state: ToggleState.POPULAR, label: 'most caught' },
@@ -46,7 +54,8 @@ export default function Timeline({ recordedFishData }: Props) {
     <>
       <div className="w-full divide-y divide-gray-200 dark:divide-gray-700">
         <div className="items-start space-y-2 xl:gap-x-8 xl:space-y-0">
-          {buttonMapping.map(({ state, label }) => (
+          {/* sort fish buttons */}
+          {filterButtonsData.map(({ state, label }) => (
             <button
               key={state}
               className={`${
@@ -63,7 +72,8 @@ export default function Timeline({ recordedFishData }: Props) {
                 fishData={fishData}
                 key={index}
                 countMap={map}
-                href={`/timeline/${fishData.tracking_code}`}
+                href={`/fish/${fishData.tracking_code}`}
+                role={role}
               />
             ))}
           </div>

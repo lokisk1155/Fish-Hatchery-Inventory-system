@@ -19,7 +19,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    push('/timeline')
+    push('/fish')
   }
 
   const fishIndexData = fishDataArray.find(({ tracking_code }) => tracking_code === params.id)

@@ -1,10 +1,10 @@
 export const headerNavLinks = [
-  { href: '/timeline', title: 'timeline' },
-  { href: '/inventory', title: 'inventory' },
+  { href: '/fish', title: 'fish' },
+  { href: '/login', title: 'login' },
 ]
 
 export const mobileHeaderNavLinks = [
   { href: '/', title: 'home' },
-  { href: '/timeline', title: 'fish timeline' },
-  { href: '/inventory', title: 'inventory' },
+  { href: '/fish', title: 'fish' },
+  { href: '/login', title: 'login' },
 ]
