@@ -5,6 +5,18 @@ import { useSession } from 'next-auth/react'
 import InventoryLayout from './components/InventoryLayout'
 import UserLogin from './components/UserLogin'
 
+export enum Role {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
+export interface SessionUser {
+  email: string
+  image: string
+  name: string
+  role: Role
+}
+
 export default function Page() {
   const session = useSession()
   const authenticated = session.status === 'authenticated' ? true : false
@@ -19,7 +31,11 @@ export default function Page() {
   return (
     <>
       <PageHeader title={title} description={description} />
-      {authenticated ? <InventoryLayout /> : <UserLogin />}
+      {authenticated && session.data && session.data.user ? (
+        <InventoryLayout user={session.data.user as SessionUser} />
+      ) : (
+        <UserLogin />
+      )}
     </>
   )
 }

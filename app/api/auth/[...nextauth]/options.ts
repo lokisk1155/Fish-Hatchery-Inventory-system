@@ -1,5 +1,10 @@
 import GoogleProvider from 'next-auth/providers/google'
 
+enum Role {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
 export const authOptions = {
   secret: 'SuperSecret',
   providers: [
@@ -12,9 +17,9 @@ export const authOptions = {
     jwt({ token, user }) {
       if (user) {
         if (user.email === process.env.ADMIN_EMAIL) {
-          token.role = 'admin'
+          token.role = Role.ADMIN
         } else {
-          token.role = 'user'
+          token.role = Role.USER
         }
       }
       return token
