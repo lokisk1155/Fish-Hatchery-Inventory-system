@@ -2,20 +2,8 @@
 import { PageHeader } from '@/components/PageHeader'
 import { adminPageHeaderProps } from '@/data/pageHeader'
 import { useSession } from 'next-auth/react'
-import InventoryLayout from './components/InventoryLayout'
 import UserLogin from './components/UserLogin'
-
-enum Role {
-  ADMIN = 'admin',
-  USER = 'user',
-}
-
-export interface SessionUser {
-  email: string
-  image: string
-  name: string
-  role: Role
-}
+import UserLogout from './components/UserLogout'
 
 export default function Page() {
   const session = useSession()
@@ -31,11 +19,7 @@ export default function Page() {
   return (
     <>
       <PageHeader title={title} description={description} />
-      {authenticated && session.data && session.data.user ? (
-        <InventoryLayout user={session.data.user as SessionUser} />
-      ) : (
-        <UserLogin />
-      )}
+      {authenticated && session.data && session.data.user ? <UserLogout /> : <UserLogin />}
     </>
   )
 }

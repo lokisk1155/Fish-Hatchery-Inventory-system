@@ -1,9 +1,13 @@
+import { Role, SessionUser } from 'interfaces/session'
 import { RecordedFishData } from 'mockData/fish'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import TimelineIndex from './TimelineIndex'
 
 interface Props {
   recordedFishData: Array<RecordedFishData>
+  authenticated: boolean
+  user: SessionUser | null
 }
 
 enum ToggleState {
@@ -12,7 +16,12 @@ enum ToggleState {
   POPULAR = 'POPULAR',
 }
 
-export default function Timeline({ recordedFishData }: Props) {
+export default function Timeline({ recordedFishData, authenticated, user }: Props) {
+  let role = Role.USER
+  if (authenticated && user) {
+    role = user.role
+  }
+
   const [toggle, setToggle] = useState<ToggleState>(ToggleState.RECENT)
   const map: { [key: string]: number } = {}
   /* individual_tracking_code = number of times it has appeared */
@@ -63,7 +72,8 @@ export default function Timeline({ recordedFishData }: Props) {
                 fishData={fishData}
                 key={index}
                 countMap={map}
-                href={`/timeline/${fishData.tracking_code}`}
+                href={`/fish/${fishData.tracking_code}`}
+                role={role}
               />
             ))}
           </div>
