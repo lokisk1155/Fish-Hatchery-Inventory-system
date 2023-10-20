@@ -8,7 +8,7 @@ interface Props {
 export default function FishIndex({ fish, count }: Props) {
   const fishDetails = [
     { label: 'Type', value: fish.type },
-    { label: 'Total Length', value: `${fish.total_length} cm` },
+    { label: 'Length', value: `${fish.total_length} cm` },
     { label: 'Weight', value: `${fish.weight} kg` },
     { label: 'Location', value: fish.location },
     { label: 'Lure type', value: fish.lure },

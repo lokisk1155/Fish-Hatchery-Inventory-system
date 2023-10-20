@@ -71,7 +71,6 @@ export default function Timeline({ recordedFishData, authenticated, user }: Prop
               <TimelineIndex
                 fishData={fishData}
                 key={index}
-                countMap={map}
                 href={`/fish/${fishData.tracking_code}`}
                 role={role}
               />

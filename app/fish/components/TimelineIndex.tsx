@@ -6,11 +6,10 @@ import TimelineCard from './TimelineCard'
 interface Props {
   fishData: RecordedFishData
   href: string
-  countMap: { [key: string]: number }
   role: Role
 }
 
-export default function TimelineIndex({ fishData, href, countMap, role }: Props) {
+export default function TimelineIndex({ fishData, href, role }: Props) {
   const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
     console.log('delete')
   }
@@ -23,7 +22,7 @@ export default function TimelineIndex({ fishData, href, countMap, role }: Props)
   if (role === Role.ADMIN) {
     children = (
       <>
-        <TimelineCard fishData={fishData} href={href} countMap={countMap} />
+        <TimelineCard fishData={fishData} href={href} role={role} />
         <div className="h-full w-1/4 flex flex-col items-center justify-start space-y-2">
           <button
             className="p-2 min-w-[70px] bg-blue-500 hover:bg-blue-600 rounded text-white"
@@ -43,7 +42,7 @@ export default function TimelineIndex({ fishData, href, countMap, role }: Props)
       </>
     )
   } else {
-    children = <TimelineCard fishData={fishData} href={href} countMap={countMap} />
+    children = <TimelineCard fishData={fishData} href={href} role={role} />
   }
 
   return (
