@@ -1,8 +1,14 @@
 import GoogleProvider from 'next-auth/providers/google'
+import { set, ref, get, Database } from 'firebase/database'
+import { getDB } from '@/data/firebaseApp'
 
 enum Role {
   ADMIN = 'admin',
   USER = 'user',
+}
+
+function sanitizeEmail(email: string): string {
+  return email.replace(/\./g, ',')
 }
 
 export const authOptions = {
@@ -24,8 +30,18 @@ export const authOptions = {
       }
       return token
     },
-    session({ session, token }) {
+    async session({ session, token }) {
       session.user.role = token.role
+      const sanitizedEmail = sanitizeEmail(session.user.email)
+      const DB = await getDB()
+      const userRef = ref(DB as Database, `users/${sanitizedEmail}`)
+      const snapshot = await get(userRef)
+      if (!snapshot.exists()) {
+        set(ref(DB as Database, `users/${sanitizeEmail(sanitizedEmail)}`), {
+          username: session.user.name,
+          role: session.user.role,
+        })
+      }
       return session
     },
   },
