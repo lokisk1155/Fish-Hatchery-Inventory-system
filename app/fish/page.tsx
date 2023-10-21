@@ -1,5 +1,4 @@
 import { PageHeader } from '@/components/PageHeader'
-import { FIREBASE_DB } from '@/data/firebaseApp'
 import { guestPageHeaderProps } from '@/data/pageHeader'
 import { genPageMetadata } from 'app/seo'
 import FishLayout from './components/FishLayout'
