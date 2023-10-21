@@ -39,3 +39,6 @@ export const authOptions = {
     },
   },
 }
+
+
+console.log('yo')
