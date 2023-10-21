@@ -1,3 +1,4 @@
+'use client'
 import { Role, SessionUser } from 'interfaces/session'
 import { RecordedFishData } from 'mockData/fish'
 import { useState } from 'react'
@@ -5,7 +6,6 @@ import TimelineIndex from './TimelineIndex'
 
 interface Props {
   recordedFishData: Array<RecordedFishData>
-  authenticated: boolean
   user: SessionUser | null
 }
 
@@ -15,12 +15,7 @@ enum ToggleState {
   POPULAR = 'POPULAR',
 }
 
-export default function Timeline({ recordedFishData, authenticated, user }: Props) {
-  let role = Role.GUEST
-  if (authenticated && user) {
-    role = user.role
-  }
-
+export default function Timeline({ recordedFishData, user }: Props) {
   const [toggle, setToggle] = useState<ToggleState>(ToggleState.RECENT)
   const map: { [key: string]: number } = {}
   /* individual_tracking_code = number of times it has appeared */
@@ -72,7 +67,7 @@ export default function Timeline({ recordedFishData, authenticated, user }: Prop
                 fishData={fishData}
                 key={index}
                 href={`/fish/${fishData.tracking_code}`}
-                role={role}
+                role={user ? user.role : Role.GUEST}
               />
             ))}
           </div>
