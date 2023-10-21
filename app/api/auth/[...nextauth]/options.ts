@@ -37,7 +37,7 @@ export const authOptions = {
       const userRef = ref(DB as Database, `users/${sanitizedEmail}`)
       const snapshot = await get(userRef)
       if (!snapshot.exists()) {
-        set(ref(DB as Database, `users/${sanitizeEmail(sanitizedEmail)}`), {
+        set(userRef, {
           username: session.user.name,
           role: session.user.role,
         })
