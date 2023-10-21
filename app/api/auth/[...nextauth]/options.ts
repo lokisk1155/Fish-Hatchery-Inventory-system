@@ -1,15 +1,8 @@
 import GoogleProvider from 'next-auth/providers/google'
 import { set, ref, get, Database } from 'firebase/database'
 import { getDB } from '@/data/firebaseApp'
-
-enum Role {
-  ADMIN = 'admin',
-  USER = 'user',
-}
-
-function sanitizeEmail(email: string): string {
-  return email.replace(/\./g, ',')
-}
+import sanitizeEmail from 'utils/sanitizeEmail'
+import { Role } from 'interfaces/session'
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET!,
