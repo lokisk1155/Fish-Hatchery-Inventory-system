@@ -1,6 +1,10 @@
 import { getDB } from '@/data/firebaseApp'
 import { Database, push, set, ref, get } from 'firebase/database'
+import { getServerSession } from 'next-auth/next'
+import { getToken } from 'next-auth/jwt'
 import { NextResponse } from 'next/server'
+import { authOptions } from '../auth/[...nextauth]/options'
+import { Role } from 'interfaces/session'
 
 export interface FishRecord {
   id: number
@@ -56,6 +60,12 @@ function isValidRecord(body: any): body is CreateRecord {
 }
 
 export async function POST(req) {
+  const token = await getToken({ req })
+
+  if (!token || !token.role) {
+    return NextResponse.error()
+  }
+
   const requestBody = await req.json()
 
   if (!isValidRecord(requestBody)) {

@@ -1,4 +1,8 @@
 'use client'
+
+import { getToken } from 'next-auth/jwt'
+import { useSession } from 'next-auth/react'
+
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 
 const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)]
