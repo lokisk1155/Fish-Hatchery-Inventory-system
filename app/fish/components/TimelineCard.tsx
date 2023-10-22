@@ -28,7 +28,7 @@ export default function TimelineCard({ fishData, href, role }: Props) {
         </p>
         <p className="text-xs text-gray-500 mt-2">Tracking Code:{fishData.tracking_code}</p>
         <p className="text-xs text-gray-500">
-          Recorded on: {new Intl.DateTimeFormat('en-US').format(fishData.date_caught)}
+          Recorded on: {new Date(fishData.date_caught).toString()}
         </p>
       </div>
     </CustomLink>

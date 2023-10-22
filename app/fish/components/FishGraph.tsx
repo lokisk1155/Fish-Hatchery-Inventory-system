@@ -18,9 +18,9 @@ export default function FishGraph({ fishIndexEntryList }: Props) {
               <div className="relative h-5" style={{ width: `${containerWidth}px` }}>
                 <div
                   className="absolute left-0 h-5 bg-blue-500 transition-all duration-200 hover:bg-blue-700 cursor-pointer"
-                  title={`Date: ${fish.date_caught.toISOString().split('T')[0]}, Length: ${
-                    fish.total_length
-                  }`}
+                  title={`Date: ${
+                    new Date(fish.date_caught).toISOString().split('T')[0]
+                  }, Length: ${fish.total_length}`}
                   style={{
                     width: `${(fish.total_length / maxLength) * containerWidth}px`,
                   }}
@@ -29,9 +29,9 @@ export default function FishGraph({ fishIndexEntryList }: Props) {
               <div className="relative h-5" style={{ width: `${containerWidth}px` }}>
                 <div
                   className="absolute left-0 h-5 bg-green-500 transition-all duration-200 hover:bg-green-700 cursor-pointer"
-                  title={`Date: ${fish.date_caught.toISOString().split('T')[0]}, Weight: ${
-                    fish.weight
-                  }`}
+                  title={`Date: ${
+                    new Date(fish.date_caught).toISOString().split('T')[0]
+                  }, Weight: ${fish.weight}`}
                   style={{
                     width: `${(fish.weight / maxWeight) * containerWidth}px`,
                   }}
@@ -40,7 +40,9 @@ export default function FishGraph({ fishIndexEntryList }: Props) {
               <div className="text-xs">{fish.location}</div>
               <div className="text-xs">{fish.weight} kg</div>
               <div className="text-xs">{fish.total_length} cm</div>
-              <div className="text-xs">{fish.date_caught.toISOString().split('T')[0]}</div>
+              <div className="text-xs">
+                {new Date(fish.date_caught).toISOString().split('T')[0]}
+              </div>
             </div>
           ))}
         </div>
