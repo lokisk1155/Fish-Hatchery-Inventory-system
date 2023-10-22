@@ -1,11 +1,12 @@
 'use client'
+import { FishRecord } from 'app/api/fish/route'
 import { Role, SessionUser } from 'interfaces/session'
-import { RecordedFishData } from 'mockData/fish'
 import { useState } from 'react'
+import AddRecord from './AddRecord'
 import TimelineCard from './TimelineCard'
 
 interface Props {
-  recordedFishData: Array<RecordedFishData>
+  recordedFishData: Array<FishRecord>
   user: SessionUser | null
 }
 
@@ -60,6 +61,7 @@ export default function Timeline({ recordedFishData, user }: Props) {
           </button>
         ))}
         <div className="flex flex-col items-center pt-8 w-full">
+          {user ? <AddRecord /> : null}
           {sortedDataMapping[toggle].map((fishData, index) => (
             <TimelineCard
               fishData={fishData}

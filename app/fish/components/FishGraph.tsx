@@ -1,7 +1,7 @@
-import { RecordedFishData } from 'mockData/fish'
+import { FishRecord } from 'app/api/fish/route'
 
 interface Props {
-  fishIndexEntryList: Array<RecordedFishData>
+  fishIndexEntryList: Array<FishRecord>
 }
 
 export default function FishGraph({ fishIndexEntryList }: Props) {
