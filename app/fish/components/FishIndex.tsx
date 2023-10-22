@@ -16,20 +16,18 @@ export default function FishIndex({ fish, count }: Props) {
     { label: 'Date Recorded', value: new Date(fish.date_caught).toLocaleDateString() },
   ]
   return (
-    <div className="mt-8">
-      <div className="flex flex-col items-center">
-        <img
-          src={fish.images}
-          alt={fish.name}
-          className="w-64 h-64 object-cover rounded-lg shadow-md"
-        />
-        <div className="mt-6 md:ml-8">
-          {fishDetails.map((detail, index) => (
-            <p key={index} className="mt-2">
-              <span className="font-bold">{detail.label}:</span> {detail.value}
-            </p>
-          ))}
-        </div>
+    <div className="flex flex-col items-center mt-8">
+      <img
+        src={fish.images}
+        alt={fish.name}
+        className="w-64 h-64 object-cover rounded-lg shadow-md"
+      />
+      <div className="mt-6 md:ml-8">
+        {fishDetails.map((detail, index) => (
+          <p key={index} className="mt-2">
+            <span className="font-bold">{detail.label}:</span> {detail.value}
+          </p>
+        ))}
       </div>
     </div>
   )
