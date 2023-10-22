@@ -10,6 +10,7 @@ export default function FishBackButton() {
     e.preventDefault()
     push('/fish')
   }
+  
   return (
     <button
       className="px-4 py-2 rounded transition-transform transform hover:bg-blue-500 hover:text-white duration-200"
