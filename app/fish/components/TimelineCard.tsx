@@ -1,11 +1,11 @@
 'use client'
 import CustomLink from '@/components/Link'
+import { FishRecord } from 'app/api/fish/route'
 import { Role } from 'interfaces/session'
-import { RecordedFishData } from 'mockData/fish'
 import AdminTimelineButtons from './AdminTimelineButtons'
 
 interface Props {
-  fishData: RecordedFishData
+  fishData: FishRecord
   href: string
   role: Role
 }

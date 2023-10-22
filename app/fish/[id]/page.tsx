@@ -1,16 +1,16 @@
 import { PageHeader } from '@/components/PageHeader'
-import { RecordedFishData } from 'mockData/fish'
 import FishIndex from '../components/FishIndex'
 import Loading from '@/components/Loading'
 import FishGraph from '../components/FishGraph'
 import FishBackButton from '../components/FishBackButton'
 import NotFound from 'app/not-found'
+import { FishRecord } from 'app/api/fish/route'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const request = await fetch(requestUrl)
-  const fishDataArray: Array<RecordedFishData> = await request.json()
+  const fishDataArray: Array<FishRecord> = await request.json()
 
   if (!fishDataArray) {
     return <Loading />
@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {fishIndexData && fishIndexEntryList ? (
+      {fishIndexData ? (
         <>
           <FishBackButton />
           <PageHeader title={fishIndexData.name} description={fishIndexData.tracking_code} />

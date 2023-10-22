@@ -5,13 +5,13 @@ import { PageHeader } from '@/components/PageHeader'
 import { fishPageHeaderProps } from '@/data/pageHeader'
 import { getServerSession } from 'next-auth'
 import { authOptions } from 'app/api/auth/[...nextauth]/options'
-import { RecordedFishData } from 'mockData/fish'
+import { FishRecord } from 'app/api/fish/route'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 
 export default async function Page() {
   const request = await fetch(requestUrl)
-  const fishDataArray: Array<RecordedFishData> = await request.json()
+  const fishDataArray: Array<FishRecord> = await request.json()
   const session = await getServerSession(authOptions)
 
   return (

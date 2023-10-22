@@ -1,7 +1,7 @@
-import { RecordedFishData } from 'mockData/fish'
+import { FishRecord } from "app/api/fish/route"
 
 interface Props {
-  fish: RecordedFishData
+  fish: FishRecord
   count: number
 }
 
