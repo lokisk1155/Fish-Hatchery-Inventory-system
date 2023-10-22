@@ -6,7 +6,7 @@ import FishGraph from '../components/FishGraph'
 import FishBackButton from '../components/FishBackButton'
 import NotFound from 'app/not-found'
 
-const requestUrl = 'http://localhost:3000/api/fish'
+const requestUrl = process.env.URL + 'api/fish'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const request = await fetch(requestUrl)
