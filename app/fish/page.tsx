@@ -7,7 +7,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from 'app/api/auth/[...nextauth]/options'
 import { RecordedFishData } from 'mockData/fish'
 
-const requestUrl = process.env.URL + 'api/fish'
+const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 
 export default async function Page() {
   const request = await fetch(requestUrl)
