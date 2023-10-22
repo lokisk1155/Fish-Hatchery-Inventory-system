@@ -7,6 +7,7 @@ export default function FishBackButton() {
   const { push } = useRouter()
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     push('/fish')
   }
   return (
