@@ -2,6 +2,7 @@
 import CustomLink from '@/components/Link'
 import { Role } from 'interfaces/session'
 import { RecordedFishData } from 'mockData/fish'
+import AdminTimelineButtons from './AdminTimelineButtons'
 
 interface Props {
   fishData: RecordedFishData
@@ -12,25 +13,28 @@ interface Props {
 export default function TimelineCard({ fishData, href, role }: Props) {
   const width = role === Role.ADMIN ? 'w-3/4' : 'w-full'
   return (
-    <CustomLink className={`${width} flex items-center p-2`} href={href}>
-      <img
-        src={fishData.images}
-        alt={fishData.name}
-        className="w-24 h-24 rounded-full object-cover mr-4"
-      />
-      <div className="flex flex-col">
-        <h2 className="text-xl font-bold mb-2">{fishData.name.toUpperCase()}</h2>
-        <p className="text-sm">
-          <strong className="font-semibold">Length:</strong> {fishData.total_length} cm
-        </p>
-        <p className="text-sm">
-          <strong className="font-semibold">Weight:</strong> {fishData.weight} kg
-        </p>
-        <p className="text-xs text-gray-500 mt-2">Tracking Code:{fishData.tracking_code}</p>
-        <p className="text-xs text-gray-500">
-          Recorded on: {new Date(fishData.date_caught).toString()}
-        </p>
-      </div>
-    </CustomLink>
+    <div className="w-full flex flex-row items-center justify-evenly border border-gray-300 rounded-md my-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-bg-colors">
+      <CustomLink className={`${width} flex items-center p-2`} href={href}>
+        <img
+          src={fishData.images}
+          alt={fishData.name}
+          className="w-24 h-24 rounded-full object-cover mr-4"
+        />
+        <div className="flex flex-col">
+          <h2 className="text-xl font-bold mb-2">{fishData.name.toUpperCase()}</h2>
+          <p className="text-sm">
+            <strong className="font-semibold">Length:</strong> {fishData.total_length} cm
+          </p>
+          <p className="text-sm">
+            <strong className="font-semibold">Weight:</strong> {fishData.weight} kg
+          </p>
+          <p className="text-xs text-gray-500 mt-2">Tracking Code:{fishData.tracking_code}</p>
+          <p className="text-xs text-gray-500">
+            Recorded on: {new Date(fishData.date_caught).toString()}
+          </p>
+        </div>
+      </CustomLink>
+      {role === Role.ADMIN && <AdminTimelineButtons />}
+    </div>
   )
 }

@@ -2,7 +2,7 @@
 import { signOut } from 'next-auth/react'
 import { MouseEvent } from 'react'
 
-export default function UserLogout() {
+export default function UserLoggedIn() {
   const handleSignOut = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     await signOut()

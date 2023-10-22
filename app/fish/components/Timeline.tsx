@@ -2,7 +2,7 @@
 import { Role, SessionUser } from 'interfaces/session'
 import { RecordedFishData } from 'mockData/fish'
 import { useState } from 'react'
-import TimelineIndex from './TimelineIndex'
+import TimelineCard from './TimelineCard'
 
 interface Props {
   recordedFishData: Array<RecordedFishData>
@@ -47,30 +47,27 @@ export default function Timeline({ recordedFishData, user }: Props) {
 
   return (
     <>
-      <div className="w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="items-start space-y-2 xl:gap-x-8 xl:space-y-0">
-          {/* sort fish buttons */}
-          {filterButtonsData.map(({ state, label }) => (
-            <button
-              key={state}
-              className={`${
-                toggle === state ? 'outline-none ring-2 ring-indigo-500' : ''
-              } w-[200px] transition duration-300 ease-in-out transform bg-gradient-to-r py-3 px-6`}
-              onClick={() => setToggle(state)}
-            >
-              {label}
-            </button>
+      <div className="w-full items-start space-y-2 xl:gap-x-8 xl:space-y-0">
+        {filterButtonsData.map(({ state, label }) => (
+          <button
+            key={state}
+            className={`${
+              toggle === state ? 'outline-none ring-2 ring-indigo-500' : ''
+            } w-[200px] transition duration-300 ease-in-out transform bg-gradient-to-r py-3 px-6`}
+            onClick={() => setToggle(state)}
+          >
+            {label}
+          </button>
+        ))}
+        <div className="flex flex-col items-center pt-8 w-full">
+          {sortedDataMapping[toggle].map((fishData, index) => (
+            <TimelineCard
+              fishData={fishData}
+              key={index}
+              href={`/fish/${fishData.tracking_code}`}
+              role={user ? user.role : Role.GUEST}
+            />
           ))}
-          <div className="flex flex-col items-center pt-8 w-full">
-            {sortedDataMapping[toggle].map((fishData, index) => (
-              <TimelineIndex
-                fishData={fishData}
-                key={index}
-                href={`/fish/${fishData.tracking_code}`}
-                role={user ? user.role : Role.GUEST}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </>

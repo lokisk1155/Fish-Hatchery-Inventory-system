@@ -1,25 +1,24 @@
-'use client'
 import { PageHeader } from '@/components/PageHeader'
-import { adminPageHeaderProps } from '@/data/pageHeader'
-import { useSession } from 'next-auth/react'
-import UserLogin from './components/UserLogin'
-import UserLogout from './components/UserLogout'
+import { loginPageHeaderProps } from '@/data/pageHeader'
+import { authOptions } from 'app/api/auth/[...nextauth]/options'
+import { getServerSession } from 'next-auth'
+import UserLoggedIn from './components/UserLoggedIn'
+import UserLoggedOut from './components/UserLoggedOut'
 
-export default function Page() {
-  const session = useSession()
-  const authenticated = session.status === 'authenticated' ? true : false
-  const title = adminPageHeaderProps.title
-  let description = adminPageHeaderProps.description
+export default async function Page() {
+  const session = await getServerSession(authOptions)
+  const authenticated = session && session.user ? true : false
+  const title = loginPageHeaderProps.title
+  let description = loginPageHeaderProps.description
 
-  if (session.status === 'authenticated' && session.data.user) {
-    // @ts-ignore user.role is always added from jwt auth callback (api/auth/[...nextauth]/options.ts), not apart of native session
-    description = `signed in as ${session.data.user.name} | role: ${session.data.user.role}`
+  if (authenticated) {
+    description = `signed in as ${session.user.name} | role: ${session.user.role}`
   }
 
   return (
     <>
       <PageHeader title={title} description={description} />
-      {authenticated && session.data && session.data.user ? <UserLogout /> : <UserLogin />}
+      {authenticated ? <UserLoggedIn /> : <UserLoggedOut />}
     </>
   )
 }
