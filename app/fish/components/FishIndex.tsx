@@ -1,4 +1,4 @@
-import { FishRecord } from "app/api/fish/route"
+import { FishRecord } from 'app/api/fish/route'
 
 interface Props {
   fish: FishRecord

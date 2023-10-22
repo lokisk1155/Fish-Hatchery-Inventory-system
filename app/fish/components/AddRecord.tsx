@@ -23,8 +23,8 @@ export default function AddRecord() {
   const handleClick = async () => {
     const mockFish = {
       name: 'Whiskers',
-      total_length: Math.floor(Math.random() * 100), // Random length between 0-99
-      weight: +(Math.random() * 10).toFixed(2), // Random weight between 0.00 - 9.99
+      total_length: Math.floor(Math.random() * 100),
+      weight: +(Math.random() * 10).toFixed(2),
       tracking_code: 'TC-8KTP3OCY',
       images: '/static/images/ocean.jpeg',
       date_caught: new Date().toISOString(),

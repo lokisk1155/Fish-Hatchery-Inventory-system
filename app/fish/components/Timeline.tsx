@@ -63,12 +63,12 @@ export default function Timeline({ recordedFishData, user }: Props) {
         <div className="flex flex-col items-center pt-8 w-full">
           {user ? <AddRecord /> : null}
           {sortedDataMapping[toggle].map((fishData, index) => (
-              <TimelineCard
-                fishData={fishData}
-                key={index}
-                href={`/fish/${fishData.tracking_code}`}
-                role={user ? user.role : Role.GUEST}
-              />
+            <TimelineCard
+              fishData={fishData}
+              key={index}
+              href={`/fish/${fishData.tracking_code}`}
+              role={user ? user.role : Role.GUEST}
+            />
           ))}
         </div>
       </div>
