@@ -44,7 +44,7 @@ export async function GET() {
   }
 }
 
-function isValidRecord(body: any): body is CreateRecord {
+function isValidRecord(body): body is CreateRecord {
   return (
     body &&
     typeof body.name === 'string' &&
