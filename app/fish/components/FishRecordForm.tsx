@@ -49,7 +49,7 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
     images: '/static/images/ocean.jpeg',
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
     const sanatizedData = {
       ...formData,
@@ -65,83 +65,90 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
 
   const handleClose = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    close()
   }
 
   return (
-    <div onClick={(e) => e.stopPropagation()} className="bg-white max-h-[80%] overflow-scroll">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-start justify-evenly  text-black p-4"
-      >
-        <div className="flex flex-row items-center justify-between w-full">
-          <h1>{fishData ? 'Update Fish Record' : 'Create Fish Record'}</h1>
-          <button onClick={handleClose}>x</button>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-start justify-evenly  text-black p-4"
+    >
+      <div className="flex flex-row items-center justify-between w-full">
+        <h1>{fishData ? 'Update Fish Record' : 'Create Fish Record'}</h1>
+        <button onClick={handleClose}>x</button>
+      </div>
+
+      {fishFormFields.map((field, index) => (
+        <div key={index} className="flex flex-col pt-4">
+          {field.label && <span>{field.label}</span>}
+          <input
+            type={field.type}
+            placeholder={field.placeholder}
+            required
+            value={formData[field.key]}
+            onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
         </div>
-
-        {fishFormFields.map((field, index) => (
-          <div key={index} className="flex flex-col pt-4">
-            {field.label && <label>{field.label}</label>}
-            <input
-              type={field.type}
-              placeholder={field.placeholder}
-              required
-              value={formData[field.key]}
-              onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              step={field.step}
-            />
-          </div>
+      ))}
+      <div className="flex flex-col pt-4">
+        <span>{'Date Caught:'}</span>
+        <input
+          type="datetime-local"
+          placeholder="date"
+          required
+          value={formatToDateTime(formData.date_caught)}
+          onChange={(e) => setFormData({ ...formData, ['date_caught']: e.target.value })}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+      </div>
+      <span>Location:</span>
+      <select
+        required
+        value={formData.location}
+        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+        className="w-full p-2 border border-gray-300 rounded-md pt-2"
+      >
+        {Array.from({ length: 10 }).map((_, i) => (
+          <option key={i} value={`pond ${i + 1}`}>
+            Pond {i + 1}
+          </option>
         ))}
-        <label>Location:</label>
-        <select
-          required
-          value={formData.location}
-          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          className="w-full p-2 border border-gray-300 rounded-md pt-2"
-        >
-          {Array.from({ length: 10 }).map((_, i) => (
-            <option key={i} value={`pond ${i + 1}`}>
-              Pond {i + 1}
-            </option>
-          ))}
-        </select>
+      </select>
 
-        <label>Type:</label>
-        <select
-          required
-          value={formData.type}
-          onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-          className="w-full p-2 border border-gray-300 rounded-md"
-        >
-          {fishTypes.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+      <span>Type:</span>
+      <select
+        required
+        value={formData.type}
+        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+        className="w-full p-2 border border-gray-300 rounded-md"
+      >
+        {fishTypes.map((type) => (
+          <option key={type} value={type}>
+            {type}
+          </option>
+        ))}
+      </select>
 
-        <label>Lure:</label>
-        <select
-          required
-          value={formData.lure}
-          onChange={(e) => setFormData({ ...formData, lure: e.target.value })}
-          className="w-full p-2 border border-gray-300 rounded-md"
-        >
-          {fishLures.map((lure) => (
-            <option key={lure} value={lure}>
-              {lure}
-            </option>
-          ))}
-        </select>
+      <span>Lure:</span>
+      <select
+        required
+        value={formData.lure}
+        onChange={(e) => setFormData({ ...formData, lure: e.target.value })}
+        className="w-full p-2 border border-gray-300 rounded-md"
+      >
+        {fishLures.map((lure) => (
+          <option key={lure} value={lure}>
+            {lure}
+          </option>
+        ))}
+      </select>
 
-        <button
-          type="submit"
-          className="w-full text-3xl text-white hover:underline bg-green-500 hover:bg-green-600 border-solid mt-4"
-        >
-          {isMutating ? 'loading...' : 'Submit'}
-        </button>
-      </form>
-    </div>
+      <button
+        type="submit"
+        className="w-full text-3xl text-white hover:underline bg-green-500 hover:bg-green-600 border-solid mt-4"
+      >
+        {isMutating ? 'loading...' : 'Submit'}
+      </button>
+    </form>
   )
 }

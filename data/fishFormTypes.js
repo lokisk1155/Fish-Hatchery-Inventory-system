@@ -27,7 +27,6 @@ export const fishFormFields = [
   {
     type: 'number',
     label: 'Weight:',
-    step: '0.01',
     placeholder: 'Weight',
     key: 'weight',
   },
@@ -36,10 +35,5 @@ export const fishFormFields = [
     label: 'Tracking ID:',
     placeholder: 'Tracking ID',
     key: 'tracking_code',
-  },
-  {
-    type: 'datetime-local',
-    label: 'Date Caught:',
-    key: 'date_caught',
   },
 ]
