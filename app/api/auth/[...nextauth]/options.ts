@@ -1,8 +1,8 @@
 import GoogleProvider from 'next-auth/providers/google'
 import { set, ref, get, push, Database } from 'firebase/database'
-import { getDB } from '@/data/firebaseApp'
 import sanitizeEmail from 'utils/sanitizeEmail'
 import { Role } from 'interfaces/session'
+import { DB } from '@/data/firebaseApp'
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET!,
@@ -26,12 +26,11 @@ export const authOptions = {
     async session({ session, token }) {
       session.user.role = token.role
       const sanitizedEmail = sanitizeEmail(session.user.email)
-      const DB = await getDB()
-      const idLookupRef = ref(DB as Database, `emailToIdLookup/${sanitizedEmail}`)
+      const idLookupRef = ref(DB, `emailToIdLookup/${sanitizedEmail}`)
       const userIdSnapshot = await get(idLookupRef)
       let userId = userIdSnapshot.val()
       if (!userId) {
-        const newUserRef = push(ref(DB as Database, 'users'))
+        const newUserRef = push(ref(DB, 'users'))
         userId = newUserRef.key
 
         await set(newUserRef, {

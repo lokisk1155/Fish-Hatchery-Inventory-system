@@ -1,4 +1,4 @@
-import { getDB } from '@/data/firebaseApp'
+import { DB } from '@/data/firebaseApp'
 import { Database, push, set, ref, get } from 'firebase/database'
 import { getServerSession } from 'next-auth/next'
 import { getToken } from 'next-auth/jwt'
@@ -34,7 +34,6 @@ export interface CreateRecord {
 
 export async function GET() {
   try {
-    const DB = await getDB()
     const fishRef = ref(DB as Database, 'fish')
     const snapshot = await get(fishRef)
     const fishDataArray: CreateRecord[] = Object.values(snapshot.val())
@@ -73,7 +72,6 @@ export async function POST(req) {
   }
 
   try {
-    const DB = await getDB()
     const newFishRef = push(ref(DB as Database, 'fish'))
     await set(newFishRef, requestBody)
     return NextResponse.json('good')
