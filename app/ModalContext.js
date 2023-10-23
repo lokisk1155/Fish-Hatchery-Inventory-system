@@ -2,7 +2,7 @@ import { createContext, useContext, MouseEvent } from 'react'
 
 const ModalContext = createContext({
   toggleModal: () => {},
-  setModalProps: (props: any) => {},
+  setModalProps: (props) => {},
 })
 
 export const useModal = () => {

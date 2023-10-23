@@ -2,8 +2,7 @@
 import { FishRecord } from 'app/api/fish/route'
 import { useModal } from 'app/ModalContext'
 import { Role, SessionUser } from 'interfaces/session'
-import { MouseEvent, useState } from 'react'
-import AddRecord from './AddRecord'
+import { useState } from 'react'
 import TimelineCard from './TimelineCard'
 
 interface Props {
@@ -18,12 +17,7 @@ enum ToggleState {
 }
 
 export default function Timeline({ recordedFishData, user }: Props) {
-  const { toggleModal, setModalProps } = useModal()
-
-  const handleUpdate = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault
-    toggleModal()
-  }
+  const { toggleModal } = useModal()
 
   const [toggle, setToggle] = useState<ToggleState>(ToggleState.RECENT)
   const map: { [key: string]: number } = {}
@@ -72,7 +66,7 @@ export default function Timeline({ recordedFishData, user }: Props) {
           <div className="w-full items-start">
             <button
               className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
-              onClick={toggleModal}
+              onClick={() => toggleModal()}
             >
               {'Create Record'}
             </button>

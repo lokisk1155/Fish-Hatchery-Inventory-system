@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, MouseEvent } from 'react'
 import Loading from '@/components/Loading'
 import Timeline from './components/Timeline'
 import { SessionUser } from 'interfaces/session'
@@ -26,6 +26,10 @@ export default function Page() {
     setIsModalOpen(!isModalOpen)
   }
 
+  const close = () => {
+    toggleModal()
+  }
+
   return (
     <>
       <ModalContext.Provider value={{ toggleModal, setModalProps }}>
@@ -49,13 +53,18 @@ export default function Page() {
             </>
           )}
         </div>
-        {isModalOpen && (
+        {isModalOpen && session.data && session.data.user && session.data.user.email && (
           <div
-            onClick={toggleModal}
+            aria-hidden="true"
+            onClick={() => close()}
             className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
           >
-            <div className="">
-              {modalProps ? <UpdateRecord fishData={modalProps} /> : <AddRecord />}
+            <div className="flex flex-col items-center justify-center bg-white dark:bg-black p-6 rounded-lg shadow-md w-11/12 md:w-2/3 lg:w-1/2">
+              {modalProps ? (
+                <UpdateRecord fishData={modalProps} author_email={session.data.user.email} />
+              ) : (
+                <AddRecord author_email={session.data.user.email} />
+              )}
             </div>
           </div>
         )}

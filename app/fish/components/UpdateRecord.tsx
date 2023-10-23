@@ -16,9 +16,10 @@ const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 
 interface Props {
   fishData: FishRecord
+  author_email: string
 }
 
-export default function UpdateRecord({ fishData }: Props) {
+export default function UpdateRecord({ fishData, author_email }: Props) {
   const { trigger, isMutating } = useSWRMutation(requestUrl, handleClick)
 
   const mockFish = {

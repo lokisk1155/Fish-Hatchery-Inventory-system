@@ -1,5 +1,6 @@
 'use client'
 import { CreateRecord } from 'app/api/fish/route'
+import { useSession } from 'next-auth/react'
 import useSWRMutation from 'swr/mutation'
 
 const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)]
@@ -29,8 +30,13 @@ async function handleClick(url: string, { arg }) {
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 
-export default function AddRecord() {
+interface Props {
+  author_email: string
+}
+
+export default function AddRecord({ author_email }: Props) {
   const { trigger, isMutating } = useSWRMutation(requestUrl, handleClick)
+  const session = useSession()
 
   const mockFish = {
     name: 'tuna',
@@ -42,6 +48,7 @@ export default function AddRecord() {
     type: getRandom(fishTypes),
     location: getRandom(fishLocations),
     lure: getRandom(fishLures),
+    author_email: author_email,
   }
 
   return (
