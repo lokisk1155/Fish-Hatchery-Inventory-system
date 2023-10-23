@@ -13,7 +13,7 @@ export interface FishRecord {
   weight: number
   tracking_code: string
   images: string
-  date_caught: Date
+  date_caught: string
 }
 
 export interface CreateRecord {
@@ -36,15 +36,15 @@ function isAdmin(token): boolean {
 function isValidRecord(body): body is CreateRecord {
   return (
     body &&
-    typeof body.name === 'string' &&
-    typeof body.type === 'string' &&
-    typeof body.location === 'string' &&
-    typeof body.lure === 'string' &&
-    typeof body.total_length === 'number' &&
-    typeof body.weight === 'number' &&
-    typeof body.tracking_code === 'string' &&
-    typeof body.images === 'string' &&
-    typeof body.date_caught === 'string'
+    typeof body.name &&
+    typeof body.type &&
+    typeof body.location &&
+    typeof body.lure &&
+    typeof body.total_length &&
+    typeof body.weight &&
+    typeof body.tracking_code &&
+    typeof body.images &&
+    typeof body.date_caught
   )
 }
 
@@ -95,7 +95,7 @@ export async function PUT(req) {
 
   const requestBody = await req.json()
 
-  if (!isValidRecord(requestBody) || typeof requestBody.id !== 'string') {
+  if (!isValidRecord(requestBody)) {
     return NextResponse.error()
   }
 
