@@ -59,7 +59,8 @@ export default function Page() {
             onClick={() => close()}
             className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
           >
-            {/* eslint-disable-next-line , doesn't like a div stopping the propagation */}
+            {/* eslint really doesn't like this div stopping propagation */}
+            {/* eslint-disable-next-line */}
             <div
               onClick={(e) => e.stopPropagation()}
               className="bg-white max-h-[80%] overflow-scroll"
