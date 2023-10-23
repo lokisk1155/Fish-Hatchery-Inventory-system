@@ -1,11 +1,12 @@
 'use client'
 import React, { MouseEvent } from 'react'
+import DeleteRecord from './DeleteRecord'
 
-export default function AdminTimelineButtons() {
-  const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log('delete')
-  }
+interface Props {
+  id: string
+}
 
+export default function AdminTimelineButtons({ id }: Props) {
   const handleEdit = (e: MouseEvent<HTMLButtonElement>) => {
     console.log('edit')
   }
@@ -19,13 +20,7 @@ export default function AdminTimelineButtons() {
       >
         update
       </button>
-      <button
-        className="p-2 min-w-[70px] bg-red-500 hover:bg-red-600 rounded text-white"
-        onClick={handleDelete}
-        aria-label="Delete"
-      >
-        delete
-      </button>
+      <DeleteRecord id={id} />
     </div>
   )
 }
