@@ -1,5 +1,6 @@
 import { DB } from '@/data/firebaseApp'
 import { Database, push, set, ref, get, remove } from 'firebase/database'
+import { Role } from 'interfaces/session'
 import { getToken } from 'next-auth/jwt'
 import { NextResponse } from 'next/server'
 
@@ -30,7 +31,7 @@ export interface CreateRecord {
 }
 
 function isAdmin(token): boolean {
-  return token && token.role === 'admin'
+  return token && token.role === Role.ADMIN
 }
 
 function isValidRecord(body): body is CreateRecord {
