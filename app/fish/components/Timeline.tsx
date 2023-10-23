@@ -63,14 +63,16 @@ export default function Timeline({ recordedFishData, user }: Props) {
           </button>
         ))}
         <div className="flex flex-col items-center pt-8 w-full">
-          <div className="w-full items-start">
-            <button
-              className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
-              onClick={() => toggleModal()}
-            >
-              {'Create Record'}
-            </button>
-          </div>
+          {user && user.role ? (
+            <div className="w-full items-start">
+              <button
+                className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
+                onClick={() => toggleModal()}
+              >
+                {'Create Record'}
+              </button>
+            </div>
+          ) : null}
           {sortedDataMapping[toggle].map((fishData, index) => (
             <TimelineCard
               fishData={fishData}
