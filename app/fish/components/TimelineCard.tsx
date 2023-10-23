@@ -34,7 +34,7 @@ export default function TimelineCard({ fishData, href, role }: Props) {
           </p>
         </div>
       </CustomLink>
-      {role === Role.ADMIN && <AdminTimelineButtons id={fishData.id} />}
+      {role === Role.ADMIN && <AdminTimelineButtons fishData={fishData} />}
     </div>
   )
 }

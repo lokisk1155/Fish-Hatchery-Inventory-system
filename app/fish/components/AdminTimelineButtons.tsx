@@ -1,26 +1,17 @@
 'use client'
-import React, { MouseEvent } from 'react'
+import { FishRecord } from 'app/api/fish/route'
 import DeleteRecord from './DeleteRecord'
+import UpdateRecord from './UpdateRecord'
 
 interface Props {
-  id: string
+  fishData: FishRecord
 }
 
-export default function AdminTimelineButtons({ id }: Props) {
-  const handleEdit = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log('edit')
-  }
-
+export default function AdminTimelineButtons({ fishData }: Props) {
   return (
     <div className="h-full w-1/4 flex flex-col items-center justify-start space-y-2">
-      <button
-        className="p-2 min-w-[70px] bg-blue-500 hover:bg-blue-600 rounded text-white"
-        onClick={handleEdit}
-        aria-label="Edit"
-      >
-        update
-      </button>
-      <DeleteRecord id={id} />
+      <UpdateRecord fishData={fishData} />
+      <DeleteRecord id={fishData.id} />
     </div>
   )
 }
