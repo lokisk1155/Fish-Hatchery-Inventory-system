@@ -65,12 +65,13 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
 
   const handleClose = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    close()
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-start justify-evenly  text-black p-4"
+      className="flex flex-col items-start justify-evenly  text-black p-4 min-w-[300px]"
     >
       <div className="flex flex-row items-center justify-between w-full">
         <h1>{fishData ? 'Update Fish Record' : 'Create Fish Record'}</h1>
@@ -78,7 +79,7 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
       </div>
 
       {fishFormFields.map((field, index) => (
-        <div key={index} className="flex flex-col pt-4">
+        <div key={index} className="w-full flex flex-col pt-4">
           {field.label && <span>{field.label}</span>}
           <input
             type={field.type}
@@ -90,7 +91,7 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
           />
         </div>
       ))}
-      <div className="flex flex-col pt-4">
+      <div className="w-full flex flex-col pt-4">
         <span>{'Date Caught:'}</span>
         <input
           type="datetime-local"
@@ -98,7 +99,7 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
           required
           value={formatToDateTime(formData.date_caught)}
           onChange={(e) => setFormData({ ...formData, ['date_caught']: e.target.value })}
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full border border-gray-300 rounded-md"
         />
       </div>
       <span>Location:</span>
