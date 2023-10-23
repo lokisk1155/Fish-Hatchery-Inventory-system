@@ -1,31 +1,33 @@
 'use client'
-import React, { MouseEvent } from 'react'
+import { FishRecord } from 'app/api/fish/route'
+import { useModal } from 'app/ModalContext'
+import { MouseEvent } from 'react'
+import DeleteRecord from './DeleteRecord'
 
-export default function AdminTimelineButtons() {
-  const handleDelete = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log('delete')
-  }
+interface Props {
+  fishData: FishRecord
+}
 
-  const handleEdit = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log('edit')
+export default function AdminTimelineButtons({ fishData }: Props) {
+  const { toggleModal, setModalProps } = useModal()
+
+  const handleUpdate = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault
+    if (fishData) {
+      setModalProps(fishData)
+      toggleModal()
+    }
   }
 
   return (
     <div className="h-full w-1/4 flex flex-col items-center justify-start space-y-2">
       <button
         className="p-2 min-w-[70px] bg-blue-500 hover:bg-blue-600 rounded text-white"
-        onClick={handleEdit}
-        aria-label="Edit"
+        onClick={handleUpdate}
       >
         update
       </button>
-      <button
-        className="p-2 min-w-[70px] bg-red-500 hover:bg-red-600 rounded text-white"
-        onClick={handleDelete}
-        aria-label="Delete"
-      >
-        delete
-      </button>
+      <DeleteRecord id={fishData.id} />
     </div>
   )
 }
