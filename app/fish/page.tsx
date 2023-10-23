@@ -59,7 +59,6 @@ export default function Page() {
             onClick={() => close()}
             className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
           >
-            {/* eslint really doesn't like this div stopping propagation */}
             {/* eslint-disable-next-line */}
             <div
               onClick={(e) => e.stopPropagation()}
