@@ -13,7 +13,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 export default function Page({ params }: { params: { id: string } }) {
   const { data, error, isLoading } = useSWR(requestUrl, fetcher)
 
-  if (isLoading) {
+  if (isLoading || error) {
     return <Loading />
   }
 
