@@ -1,6 +1,7 @@
 'use client'
 import { FishRecord } from 'app/api/fish/route'
-import { useModal } from '../page'
+import { useModal } from 'app/ModalContext'
+import { MouseEvent } from 'react'
 import DeleteRecord from './DeleteRecord'
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
 export default function AdminTimelineButtons({ fishData }: Props) {
   const { toggleModal, setModalProps } = useModal()
 
-  const handleUpdate = () => {
+  const handleUpdate = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault
     if (fishData) {
       setModalProps(fishData)
       toggleModal()

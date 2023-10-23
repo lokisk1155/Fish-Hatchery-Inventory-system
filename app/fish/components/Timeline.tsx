@@ -1,7 +1,8 @@
 'use client'
 import { FishRecord } from 'app/api/fish/route'
+import { useModal } from 'app/ModalContext'
 import { Role, SessionUser } from 'interfaces/session'
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import AddRecord from './AddRecord'
 import TimelineCard from './TimelineCard'
 
@@ -17,6 +18,13 @@ enum ToggleState {
 }
 
 export default function Timeline({ recordedFishData, user }: Props) {
+  const { toggleModal, setModalProps } = useModal()
+
+  const handleUpdate = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault
+    toggleModal()
+  }
+
   const [toggle, setToggle] = useState<ToggleState>(ToggleState.RECENT)
   const map: { [key: string]: number } = {}
   /* individual_tracking_code = number of times it has appeared */
@@ -61,7 +69,14 @@ export default function Timeline({ recordedFishData, user }: Props) {
           </button>
         ))}
         <div className="flex flex-col items-center pt-8 w-full">
-          {user ? <AddRecord /> : null}
+          <div className="w-full items-start">
+            <button
+              className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
+              onClick={toggleModal}
+            >
+              {'Create Record'}
+            </button>
+          </div>
           {sortedDataMapping[toggle].map((fishData, index) => (
             <TimelineCard
               fishData={fishData}

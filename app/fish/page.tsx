@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Loading from '@/components/Loading'
 import Timeline from './components/Timeline'
 import { SessionUser } from 'interfaces/session'
@@ -10,18 +10,10 @@ import useSWR from 'swr'
 import AddRecord from './components/AddRecord'
 import UpdateRecord from './components/UpdateRecord'
 import { FishRecord } from 'app/api/fish/route'
+import ModalContext from 'app/ModalContext'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-const ModalContext = createContext({
-  toggleModal: () => {},
-  setModalProps: (props: any) => {},
-})
-
-export function useModal() {
-  return useContext(ModalContext)
-}
 
 export default function Page() {
   const { data, error, isLoading } = useSWR(requestUrl, fetcher)
@@ -62,7 +54,9 @@ export default function Page() {
             onClick={toggleModal}
             className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
           >
-            {modalProps ? <UpdateRecord fishData={modalProps} /> : <AddRecord />}
+            <div className="">
+              {modalProps ? <UpdateRecord fishData={modalProps} /> : <AddRecord />}
+            </div>
           </div>
         )}
       </ModalContext.Provider>
