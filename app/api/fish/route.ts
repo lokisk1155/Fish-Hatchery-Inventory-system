@@ -52,6 +52,11 @@ export async function GET() {
   try {
     const fishRef = ref(DB as Database, 'fish')
     const snapshot = await get(fishRef)
+
+    if (!snapshot.exists()) {
+      return NextResponse.json([])
+    }
+
     const fishDataArray: CreateRecord[] = Object.values(snapshot.val())
     return NextResponse.json(fishDataArray)
   } catch {
