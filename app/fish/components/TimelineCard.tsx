@@ -22,7 +22,7 @@ interface Props {
 export default function TimelineCard({ fishData, href, role }: Props) {
   const width = role === Role.ADMIN ? 'w-3/4' : 'w-full'
   return (
-    <div className="relative w-full flex flex-row items-center justify-evenly border border-gray-300 mt-3 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-bg-colors">
+    <div className="relative w-full flex flex-col md:flex-row items-start md:items-center justify-start md:justify-center border border-gray-300 mt-3 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-bg-colors">
       <CustomLink className={`${width} flex items-center p-2`} href={href}>
         <img
           src={fishImages[fishData.type]}

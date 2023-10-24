@@ -1,5 +1,6 @@
 'use client'
 import useSWRMutation from 'swr/mutation'
+import { XSquare } from 'lucide-react'
 
 async function handleClick(url: string, { arg }) {
   return await fetch(url, {
@@ -22,10 +23,10 @@ export default function DeleteRecord({ id }: Props) {
 
   return (
     <button
-      className="p-1 min-w-[75px] bg-red-500 hover:bg-red-600 text-white"
+      className="p-1 min-w-[50px] bg-red-500 hover:bg-red-600 text-white flex items-center justify-center"
       onClick={() => trigger(id)}
     >
-      {isMutating ? 'deleting...' : 'delete'}
+      {isMutating ? 'deleting...' : <XSquare />}
     </button>
   )
 }
