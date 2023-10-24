@@ -1,21 +1,24 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Loading from '@/components/Loading'
 import Timeline from './components/Timeline'
 import { SessionUser } from 'interfaces/session'
 import { PageHeader } from '@/components/PageHeader'
 import { fishPageHeaderProps } from '@/data/pageHeader'
 import { useSession } from 'next-auth/react'
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import { FishRecord } from 'app/api/fish/route'
 import ModalContext from 'app/ModalContext'
 import FishRecordForm from './components/FishRecordForm'
+import { onValue, ref } from 'firebase/database'
+import { DB } from '@/data/firebaseApp'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Page() {
-  const { data, error, isLoading } = useSWR(requestUrl, fetcher)
+  const { data, error, isLoading } = useSWR(requestUrl, fetcher, { refreshInterval: 1000 })
+  const [fishData, setFishData] = useState([])
   const session = useSession()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -38,9 +41,7 @@ export default function Page() {
           description={fishPageHeaderProps.description}
         />
         <div className="flex flex-col items-center space-x-2">
-          {isLoading || error ? (
-            <Loading />
-          ) : (
+          {data !== undefined ? (
             <>
               <Timeline
                 recordedFishData={data}
@@ -51,6 +52,8 @@ export default function Page() {
                 }
               />
             </>
+          ) : (
+            <Loading />
           )}
         </div>
         {isModalOpen && session.data && session.data.user && session.data.user.email && (
