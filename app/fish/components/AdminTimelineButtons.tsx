@@ -20,14 +20,14 @@ export default function AdminTimelineButtons({ fishData }: Props) {
   }
 
   return (
-    <div className="h-full w-1/4 flex flex-col items-center justify-start space-y-2">
+    <div className="absolute top-0 right-0 flex flex-col">
+      <DeleteRecord id={fishData.id} />
       <button
-        className="p-2 min-w-[70px] bg-blue-500 hover:bg-blue-600 rounded text-white"
+        className="p-1 min-w-[75px] bg-blue-500 hover:bg-blue-600  text-white"
         onClick={handleUpdate}
       >
         update
       </button>
-      <DeleteRecord id={fishData.id} />
     </div>
   )
 }

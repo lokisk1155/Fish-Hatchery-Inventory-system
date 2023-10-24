@@ -1,10 +1,10 @@
 export const headerNavLinks = [
-  { href: '/fish', title: 'fish' },
-  { href: '/login', title: 'login' },
+  { href: '/fish', title: 'Fish' },
+  { href: '/portal', title: 'Auth Portal' },
 ]
 
 export const mobileHeaderNavLinks = [
   { href: '/', title: 'home' },
-  { href: '/fish', title: 'fish' },
-  { href: '/login', title: 'login' },
+  { href: '/fish', title: 'Fish' },
+  { href: '/portal', title: 'Auth Portal' },
 ]

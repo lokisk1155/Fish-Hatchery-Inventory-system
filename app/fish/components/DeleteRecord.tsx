@@ -22,10 +22,10 @@ export default function DeleteRecord({ id }: Props) {
 
   return (
     <button
-      className="p-2 min-w-[70px] bg-red-500 hover:bg-red-600 rounded text-white"
+      className="p-1 min-w-[75px] bg-red-500 hover:bg-red-600 text-white"
       onClick={() => trigger(id)}
     >
-      {isMutating ? 'Deleting...' : 'Delete'}
+      {isMutating ? 'deleting...' : 'delete'}
     </button>
   )
 }
