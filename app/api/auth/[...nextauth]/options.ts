@@ -1,8 +1,9 @@
 import GoogleProvider from 'next-auth/providers/google'
-import { set, ref, get, push, Database } from 'firebase/database'
+import { set, ref, get, push } from 'firebase/database'
 import sanitizeEmail from 'utils/sanitizeEmail'
-import { Role } from 'interfaces/session'
 import { DB } from '@/data/firebaseApp'
+
+const tempStorage = new Map()
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET!,
@@ -13,34 +14,28 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        if (user.email === process.env.ADMIN_EMAIL) {
-          token.role = Role.ADMIN
-        } else {
-          token.role = Role.USER
+    async redirect({ url, baseUrl }) {
+      const urlObj = new URL(url)
+      const role = urlObj.searchParams.get('role')
+
+      if (role) {
+        tempStorage.set(0, role)
+      }
+
+      return `${baseUrl}/login`
+    },
+    async jwt({ token }) {
+      if (token) {
+        const role = tempStorage.get(0)
+        if (role) {
+          token.role = role
+          tempStorage.delete(0)
         }
       }
       return token
     },
     async session({ session, token }) {
       session.user.role = token.role
-      const sanitizedEmail = sanitizeEmail(session.user.email)
-      const idLookupRef = ref(DB, `emailToIdLookup/${sanitizedEmail}`)
-      const userIdSnapshot = await get(idLookupRef)
-      let userId = userIdSnapshot.val()
-      if (!userId) {
-        const newUserRef = push(ref(DB, 'users'))
-        userId = newUserRef.key
-
-        await set(newUserRef, {
-          username: session.user.name,
-          role: session.user.role,
-          email: session.user.email,
-        })
-
-        await set(idLookupRef, userId)
-      }
       return session
     },
   },

@@ -7,6 +7,7 @@ export default function UserLoggedIn() {
     e.preventDefault()
     await signOut()
   }
+
   return (
     <>
       <button
