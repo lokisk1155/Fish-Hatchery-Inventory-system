@@ -1,4 +1,5 @@
 import { FishRecord } from 'app/api/fish/route'
+import { fishImages } from './TimelineCard'
 
 interface Props {
   fish: FishRecord
@@ -18,7 +19,7 @@ export default function FishCard({ fish, count }: Props) {
   return (
     <div className="flex flex-col items-center mt-8">
       <img
-        src={fish.images}
+        src={fishImages[fish.type]}
         alt={fish.name}
         className="w-64 h-64 object-cover rounded-lg shadow-md"
       />
