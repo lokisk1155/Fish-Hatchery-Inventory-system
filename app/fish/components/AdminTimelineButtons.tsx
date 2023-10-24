@@ -2,6 +2,7 @@
 import { FishRecord } from 'app/api/fish/route'
 import { useModal } from 'app/ModalContext'
 import { MouseEvent } from 'react'
+import { FileEdit } from 'lucide-react'
 import DeleteRecord from './DeleteRecord'
 
 interface Props {
@@ -20,13 +21,13 @@ export default function AdminTimelineButtons({ fishData }: Props) {
   }
 
   return (
-    <div className="absolute top-0 right-0 flex flex-col">
+    <div className="absolute top-0 right-0 flex flex-col p-2">
       <DeleteRecord id={fishData.id} />
       <button
-        className="p-1 min-w-[75px] bg-blue-500 hover:bg-blue-600  text-white"
+        className="p-1 min-w-[50px] bg-blue-500 hover:bg-blue-600  text-white flex items-center justify-center"
         onClick={handleUpdate}
       >
-        update
+        <FileEdit />
       </button>
     </div>
   )
