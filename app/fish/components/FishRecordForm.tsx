@@ -55,8 +55,8 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
       ...formData,
     }
 
-    if (fishData?.id) {
-      sanatizedData['id'] = fishData?.id
+    if (fishData && fishData.id) {
+      sanatizedData['id'] = fishData.id
     }
 
     trigger(sanatizedData)
