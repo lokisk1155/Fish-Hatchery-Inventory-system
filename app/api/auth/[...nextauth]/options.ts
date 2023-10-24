@@ -19,7 +19,7 @@ export const authOptions = {
         tempStorage.set(0, role)
       }
 
-      return `${baseUrl}/login`
+      return `${baseUrl}/fish`
     },
     async jwt({ token }) {
       if (token) {
