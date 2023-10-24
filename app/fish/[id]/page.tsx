@@ -29,8 +29,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const fishIndexEntryList = data.filter(({ tracking_code }) => tracking_code === params.id)
 
   const sortByMostRecent = fishIndexEntryList.sort(
-    (a: FishRecord, b: FishRecord) =>
-      +new Date(b.date_caught) - +new Date(a.date_caught)
+    (a: FishRecord, b: FishRecord) => +new Date(b.date_caught) - +new Date(a.date_caught)
   )
 
   const fishIndexData = sortByMostRecent[0]
