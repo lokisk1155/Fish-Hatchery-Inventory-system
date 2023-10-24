@@ -13,7 +13,7 @@ export const authOptions = {
   callbacks: {
     async redirect({ url, baseUrl }) {
       // this is very insecure
-      // but allows a simple demo of being both persona's
+      // but allows a simple demo of both persona's
       const urlObj = new URL(url)
       const role = urlObj.searchParams.get('role')
 
