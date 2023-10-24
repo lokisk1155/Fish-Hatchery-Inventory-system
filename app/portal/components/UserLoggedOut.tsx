@@ -17,15 +17,15 @@ export default function UserLoggedOut() {
     })
   }
   return (
-    <div className="w-full flex-col items-start">
+    <div className="w-full flex flex-col items-start">
       <button
-        className="w-full text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
+        className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
         onClick={handleSignInAdmin}
       >
         login as admin
       </button>
       <button
-        className="w-full text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px] mt-4"
+        className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px] mt-4"
         onClick={handleSignInUser}
       >
         login as user
