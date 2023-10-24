@@ -1,5 +1,5 @@
 'use client'
-import { fishFormFields, fishLures, fishTypes } from '@/data/fishFormTypes'
+import { fishFormFields, fishLures, fishTypes } from '@/data/fishTypes'
 import { FishRecord } from 'app/api/fish/route'
 import { MouseEvent, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
@@ -46,7 +46,6 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
     location: fishData?.location || 'pond 1',
     lure: fishData?.lure || 'jigs',
     author_email: author_email,
-    images: '/static/images/ocean.jpeg',
   })
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {

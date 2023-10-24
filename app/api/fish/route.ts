@@ -44,7 +44,6 @@ function isValidRecord(body): body is CreateRecord {
     typeof body.total_length &&
     typeof body.weight &&
     typeof body.tracking_code &&
-    typeof body.images &&
     typeof body.date_caught
   )
 }

@@ -1,15 +1,5 @@
 export const fishLures = ['jigs', 'crank', 'spinner']
-export const fishTypes = [
-  'tuna',
-  'barracuda',
-  'perch',
-  'mackerel',
-  'salmon',
-  'trout',
-  'catfish',
-  'carp',
-  'bass',
-]
+export const fishTypes = ['tuna', 'barracuda', 'perch', 'salmon', 'catfish', 'bass']
 
 export const fishFormFields = [
   {
