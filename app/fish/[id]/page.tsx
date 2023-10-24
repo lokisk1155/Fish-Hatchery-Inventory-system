@@ -17,7 +17,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const session = useSession()
 
   const authenticatedAdmin =
-    // @ts-ignore , role is provided during [...nextAuth]/route.ts (redirect -> jwt -> session ) callback function's
+    // @ts-ignore [...nextAuth]/route.ts redirect -> jwt -> session gives user.role, server side understands but not client
     session.data && session.data.user && session.data.user.role === Role.ADMIN ? true : false
 
   const { data, error, isLoading } = useSWR(requestUrl, fetcher)
@@ -30,7 +30,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const sortByMostRecent = fishIndexEntryList.sort(
     (a: FishRecord, b: FishRecord) =>
-      new Date(b.date_caught).getTime() - new Date(a.date_caught).getTime()
+      +new Date(b.date_caught) - +new Date(a.date_caught)
   )
 
   const fishIndexData = sortByMostRecent[0]

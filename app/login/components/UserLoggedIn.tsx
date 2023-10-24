@@ -9,13 +9,11 @@ export default function UserLoggedIn() {
   }
 
   return (
-    <>
-      <button
-        className="w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
-        onClick={handleSignOut}
-      >
-        logout
-      </button>
-    </>
+    <button
+      className="w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
+      onClick={handleSignOut}
+    >
+      logout
+    </button>
   )
 }
