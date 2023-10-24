@@ -2,7 +2,6 @@
 import { Role } from 'interfaces/session'
 import { signIn } from 'next-auth/react'
 import { MouseEvent } from 'react'
-import Cookies from 'js-cookie'
 
 export default function UserLoggedOut() {
   const handleSignInAdmin = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -13,7 +12,6 @@ export default function UserLoggedOut() {
   }
   const handleSignInUser = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    Cookies.set('wantedRole', Role.USER)
     await signIn('google', {
       callbackUrl: `${window.location.origin}/api/auth/callback/google?role=${Role.USER}`,
     })
