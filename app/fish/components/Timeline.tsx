@@ -49,40 +49,38 @@ export default function Timeline({ recordedFishData, user }: Props) {
   ]
 
   return (
-    <>
-      <div className="w-full items-start space-y-2 xl:gap-x-8 xl:space-y-0">
-        {filterButtonsData.map(({ state, label }) => (
-          <button
-            key={state}
-            className={`${
-              toggle === state ? 'outline-none ring-2 ring-indigo-500' : ''
-            } w-[200px] transition duration-300 ease-in-out transform bg-gradient-to-r py-3 px-6`}
-            onClick={() => setToggle(state)}
-          >
-            {label}
-          </button>
+    <div className="w-full items-start space-y-2 xl:gap-x-8 xl:space-y-0">
+      {filterButtonsData.map(({ state, label }) => (
+        <button
+          key={state}
+          className={`${
+            toggle === state ? 'outline-none ring-2 ring-indigo-500' : ''
+          } w-[200px] transition duration-300 ease-in-out transform bg-gradient-to-r py-3 px-6`}
+          onClick={() => setToggle(state)}
+        >
+          {label}
+        </button>
+      ))}
+      <div className="flex flex-col items-center pt-8 w-full">
+        {user && user.role ? (
+          <div className="w-full items-start">
+            <button
+              className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
+              onClick={() => toggleModal()}
+            >
+              {'Create Record'}
+            </button>
+          </div>
+        ) : null}
+        {sortedDataMapping[toggle].map((fishData, index) => (
+          <TimelineCard
+            fishData={fishData}
+            key={index}
+            href={`/fish/${fishData.tracking_code}`}
+            role={user ? user.role : Role.GUEST}
+          />
         ))}
-        <div className="flex flex-col items-center pt-8 w-full">
-          {user && user.role ? (
-            <div className="w-full items-start">
-              <button
-                className="w-full md:w-1/2 text-3xl hover:underline hover:bg-gray-200 dark:hover:bg-gray-800 border-solid border-[3px]"
-                onClick={() => toggleModal()}
-              >
-                {'Create Record'}
-              </button>
-            </div>
-          ) : null}
-          {sortedDataMapping[toggle].map((fishData, index) => (
-            <TimelineCard
-              fishData={fishData}
-              key={index}
-              href={`/fish/${fishData.tracking_code}`}
-              role={user ? user.role : Role.GUEST}
-            />
-          ))}
-        </div>
       </div>
-    </>
+    </div>
   )
 }

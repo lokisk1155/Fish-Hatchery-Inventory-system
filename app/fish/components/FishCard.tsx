@@ -5,7 +5,7 @@ interface Props {
   count: number
 }
 
-export default function FishIndex({ fish, count }: Props) {
+export default function FishCard({ fish, count }: Props) {
   const fishDetails = [
     { label: 'Type', value: fish.type },
     { label: 'Length', value: `${fish.total_length} cm` },

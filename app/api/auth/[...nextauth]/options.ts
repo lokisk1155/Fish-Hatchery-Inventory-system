@@ -1,7 +1,4 @@
 import GoogleProvider from 'next-auth/providers/google'
-import { set, ref, get, push } from 'firebase/database'
-import sanitizeEmail from 'utils/sanitizeEmail'
-import { DB } from '@/data/firebaseApp'
 
 const tempStorage = new Map()
 

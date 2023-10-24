@@ -1,5 +1,4 @@
 import { FishRecord } from 'app/api/fish/route'
-import { useSession } from 'next-auth/react'
 
 interface Props {
   fishIndexEntryList: Array<FishRecord>
