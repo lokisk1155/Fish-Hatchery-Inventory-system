@@ -72,7 +72,9 @@ export default function FishRecordForm({ fishData, close }: Props) {
     >
       <div className="flex flex-row items-center justify-between w-full">
         <h1>{fishData ? 'Update Fish Record' : 'Create Fish Record'}</h1>
-        <button onClick={handleClose}>x</button>
+        <button type="button" onClick={handleClose}>
+          x
+        </button>
       </div>
 
       {fishFormFields.map((field, index) => (
