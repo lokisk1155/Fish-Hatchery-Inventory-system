@@ -2,17 +2,15 @@
 
 # 💻 Stack
 
-[next](https://nextjs.org/): Next.js utilizes server-side rendering (SSR) and static generation, optimizing application load times. Next was an easy choice for this project as it provides all in one capabilities for the requirements.
+[next](https://nextjs.org/): Choosing Next.js was an obvious decision due to its comprehensive capabilities. Built on top of React, it guarantees a responsive front-end interface. The API routes provided by Next.js offer a seamless setup for public APIs by creating serverless functions that have a direct connection to the firebase db. Moreover, hosting is simplified with integration from Vercel. Although cold starts can be a concern in certain situations, our system's emphasis on real-time updates effectively mitigates this problem.
 
 [firebase](https://firebase.google.com/): Firebase offers Backend as a Service (BaaS), expediting the development process by utilizing serverless functions combined with efficient caching, eliminating the need for a distinct back-end setup.
 
 [next-auth](https://next-auth.js.org/): This library seamlessly integrates Firebase authentication within the app. By leveraging Next.js's server-side rendering (SSR), users receive instant feedback based on their authentication state. Next auth provides simple/easy session access for both client and server side operations.
 
-[swr](https://swr.vercel.app/): SWR is a strategy to first return the data from cache (stale), then send the fetch request (revalidate), and finally come with the up-to-date data, making it an ideal choice to help facilitate real time updates.
+[swr](https://swr.vercel.app/): SWR operates on a strategy of initially returning cached data, then proceeding to fetch fresh data, and finally updating with the most recent data. This approach makes it a prime candidate for supporting real-time updates. Additionally, with its integrated caching mechanism, SWR eliminates the need for separate state management libraries.
 
-[starter](https://vercel.com/templates/next.js/tailwind-css-starter-blog) This starter kit provided a head start in setting up the basic frontend architecture of the application, allowing for more focus on the unique functionalities required.
-
-[tailwindcss](https://tailwindcss.com/): While the recommendation was to use Material-UI, Tailwind CSS offers a utility-first approach, that I am accustomed to developing with. Along with it being apart of the starter.
+[starter](https://vercel.com/templates/next.js/tailwind-css-starter-blog) This tailwind css starter blog expedited the foundational frontend setup for our application. While Material-UI offers predefined components aligned with Google's Material Design guidelines, Tailwind's utility classes grant the flexibility to craft bespoke components, aligning with my personal development preferences.
 
 <br>
 
