@@ -1,12 +1,12 @@
 # 💻 Stack
 
-[next](https://nextjs.org/): Next.js utilizes server-side rendering (SSR) and static generation, optimizing application load times. Its versatile nature makes it well-suited for the varied needs of this project.
+[next](https://nextjs.org/): Next.js utilizes server-side rendering (SSR) and static generation, optimizing application load times. Next was an easy choice for this project as it provides all in one capabilities for the requirements.
 
 [firebase](https://firebase.google.com/): Firebase offers Backend as a Service (BaaS), expediting the development process by utilizing serverless functions combined with efficient caching, eliminating the need for a distinct back-end setup.
 
-[next-auth](https://next-auth.js.org/): Designed specifically for Next.js, this library seamlessly integrates Firebase authentication within the app. By leveraging Next.js's server-side rendering (SSR), users receive instant feedback based on their authentication state. This not only simplifies client-side logic but also enhances user privacy.
+[next-auth](https://next-auth.js.org/): This library seamlessly integrates Firebase authentication within the app. By leveraging Next.js's server-side rendering (SSR), users receive instant feedback based on their authentication state. Next auth provides simple/easy session access for both client and server side operations.
 
-[swr](https://swr.vercel.app/): Helps facilitate efficient real time data fetching, which is crucial for the fish data timeline.
+[swr](https://swr.vercel.app/): SWR is a strategy to first return the data from cache (stale), then send the fetch request (revalidate), and finally come with the up-to-date data, making it an ideal choice to help facilitate real time updates.
 
 [tailwindcss](https://tailwindcss.com/): While the recommendation was to use Material-UI, Tailwind CSS offers a utility-first approach, that I am accustomed to developing with.
 
@@ -22,26 +22,24 @@
 
 This represents the main data entity in the application. A FishRecord contains information such as the fish's name, type, location, lure used, dimensions, tracking code, images, and the date it was caught.
 
-### NextAuth Session
+### Session
 
 Represents the user's session following their successful authentication, which can be accessed using useSession in client components and getServerSession in server-side components. In addition to standard authentication details from the provider, this session encapsulates custom attributes. I add the custom attribute role, which is added and managed through the redirect, jwt, and session callbacks of NextAuth.
 
 ## Firebase CRUD Operations:
 
 GET: Retrieves fish records from the 'fish' reference in the database.
-POST: After role-based access verification using JWT tokens, new fish records are created with unique IDs using Firebase's push() and set() functions.
-PUT: Updates are restricted to admin users. The specific fish record is targeted using its ID and updated with the given data.
+POST: After admin role verification using JWT tokens, new fish records are created with unique IDs using Firebase's push() and set() functions.
+PUT: After admin role verification. The specific fish record is targeted using its ID and updated with the given data.
 DELETE: After admin role verification, the target fish record is removed based on its unique ID.
 
 ### NextAuth Session
 
-When authentication is successful, the redirect callback modifies the redirection URL depending on the login button pressed by the user. This approach was adopted for testing due to the limitations of not being able to pass a cookie in headers or access sessionStorage and localStorage within NextAuth's callbacks. In a production setting, roles would ideally be managed through the database or by setting authorizations in the jwt callback against a list of emails designated for admin privileges. The role, while temporary, is stored for the session's duration. The JWT callback integrates this role into the user's JWT, ensuring the role is associated with the user's session. Subsequently, the session callback ensures this role is accessible within the session on the client side.
+When authentication is successful, the redirect callback modifies the redirection URL depending on the login button pressed by the user. This approach was adopted due to the limitations of client side data being accesible within NextAuth's callbacks. In a production setting, roles would ideally be managed through the database or by setting authorizations in the jwt callback against a list of emails designated for admin privileges. The role, while temporary, is stored for the session's duration. The JWT callback integrates this role into the user's JWT, ensuring the role is associated with the user's session. Subsequently, the session callback ensures this role is accessible within the session on the client side.
 
 ## Authorization & Validation:
 
-Before performing certain operations, the application validates the user's token using getToken from next-auth/jwt.
-Functions like isAdmin verify if the logged-in user is an administrator.
-Data Validation: isValidRecord is a utility that ensures the incoming data for a fish record is of the correct format.
+Before performing DB write operations, the application validates the user's token using getToken from next-auth/jwt. I created the helper function isAdmin that is used. I also created isValidRecord that ensures the incoming data for a fish record is of the correct format.
 
 ## Pages:
 
