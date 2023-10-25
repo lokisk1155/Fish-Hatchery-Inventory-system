@@ -8,9 +8,9 @@
 
 [swr](https://swr.vercel.app/): SWR is a strategy to first return the data from cache (stale), then send the fetch request (revalidate), and finally come with the up-to-date data, making it an ideal choice to help facilitate real time updates.
 
-[tailwindcss](https://tailwindcss.com/): While the recommendation was to use Material-UI, Tailwind CSS offers a utility-first approach, that I am accustomed to developing with.
-
 [starter](https://vercel.com/templates/next.js/tailwind-css-starter-blog) This starter kit provided a head start in setting up the basic frontend architecture of the application, allowing for more focus on the unique functionalities required.
+
+[tailwindcss](https://tailwindcss.com/): While the recommendation was to use Material-UI, Tailwind CSS offers a utility-first approach, that I am accustomed to developing with. Along with it being apart of the starter.
 
 <br>
 
@@ -57,7 +57,6 @@ For admin users, there's a modal functionality to modify fish records using Fish
 
 ### Authentication Portal
 
-Assesses the user's login state through the server session.
 If authenticated, the page displays the user's name, their role and provides a sign-out button. Otherwise the page presents options to log in as either an admin or a regular user.
 Contingent on the user's authentication state, the portal switches between rendering the UserLoggedIn or UserLoggedOut component.
 
