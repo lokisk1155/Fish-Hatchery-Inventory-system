@@ -67,7 +67,7 @@ export async function GET() {
 export async function POST(req) {
   const token = await getToken({ req })
 
-  if (!token || !token.role) {
+  if (!isAdmin(token)) {
     return NextResponse.error()
   }
 
