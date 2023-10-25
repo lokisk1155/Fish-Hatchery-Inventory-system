@@ -17,8 +17,7 @@ const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Page() {
-  const { data, error, isLoading } = useSWR(requestUrl, fetcher, { refreshInterval: 1000 })
-  const [fishData, setFishData] = useState([])
+  const { data, error, isLoading } = useSWR(requestUrl, fetcher, { refreshInterval: 5000 })
   const session = useSession()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -41,22 +40,20 @@ export default function Page() {
           description={fishPageHeaderProps.description}
         />
         <div className="flex flex-col items-center space-x-2">
-          {data !== undefined ? (
-            <>
-              <Timeline
-                recordedFishData={data}
-                user={
-                  session && session.data && session.data.user
-                    ? (session.data.user as SessionUser)
-                    : null
-                }
-              />
-            </>
-          ) : (
+          {isLoading || error ? (
             <Loading />
+          ) : (
+            <Timeline
+              recordedFishData={data}
+              user={
+                session && session.data && session.data.user
+                  ? (session.data.user as SessionUser)
+                  : null
+              }
+            />
           )}
         </div>
-        {isModalOpen && session.data && session.data.user && session.data.user.email && (
+        {isModalOpen && (
           <div
             aria-hidden="true"
             onClick={() => close()}
@@ -67,11 +64,7 @@ export default function Page() {
               onClick={(e) => e.stopPropagation()}
               className="bg-white max-h-[80%] overflow-scroll"
             >
-              <FishRecordForm
-                fishData={modalProps ? modalProps : null}
-                author_email={session.data.user.email}
-                close={close}
-              />
+              <FishRecordForm fishData={modalProps ? modalProps : null} close={close} />
             </div>
           </div>
         )}
