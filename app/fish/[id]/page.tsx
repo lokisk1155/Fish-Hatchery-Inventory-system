@@ -20,7 +20,7 @@ export default function Page({ params }: { params: { id: string } }) {
     // @ts-ignore [...nextAuth]/route.ts redirect -> jwt -> session gives user.role, server side understands but not client
     session.data && session.data.user && session.data.user.role === Role.ADMIN ? true : false
 
-  const { data, error, isLoading } = useSWR(requestUrl, fetcher)
+  const { data, error, isLoading } = useSWR(requestUrl, fetcher, { refreshInterval: 1000 })
 
   if (isLoading || error) {
     return <Loading />
