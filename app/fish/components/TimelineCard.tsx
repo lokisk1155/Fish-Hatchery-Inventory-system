@@ -16,7 +16,7 @@ export const fishImages = {
 interface Props {
   fishData: FishRecord
   href: string
-  role: Role
+  role: Role | null
 }
 
 export default function TimelineCard({ fishData, href, role }: Props) {
@@ -49,7 +49,7 @@ export default function TimelineCard({ fishData, href, role }: Props) {
           </p>
         </div>
       </CustomLink>
-      {role === Role.ADMIN && <AdminTimelineButtons fishData={fishData} />}
+      {role && role === Role.ADMIN && <AdminTimelineButtons fishData={fishData} />}
     </div>
   )
 }
