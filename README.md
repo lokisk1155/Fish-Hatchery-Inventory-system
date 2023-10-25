@@ -2,7 +2,7 @@
 
 # 💻 Stack
 
-[next](https://nextjs.org/): Choosing Next.js was an obvious decision due to its comprehensive capabilities. Built on top of React, it guarantees a responsive front-end interface. The API routes provided by Next.js offer a seamless setup for public APIs by creating serverless functions that have a direct connection to the firebase db. Moreover, hosting is simplified with integration from Vercel. Although cold starts can be a concern in certain situations, our system's emphasis on real-time updates effectively mitigates this problem.
+[next](https://nextjs.org/): Next.js was an easy decision due to its comprehensive capabilities. Built on top of React, it guarantees a responsive front-end interface. The API routes facilitate the creation of public APIs through serverless functions that connect directly to Firebase. Moreover, hosting is simplified with integration from Vercel. Although cold starts can be a concern in certain situations, our system's emphasis on real-time updates effectively mitigates this problem.
 
 [firebase](https://firebase.google.com/): Firebase offers Backend as a Service (BaaS), expediting the development process by utilizing serverless functions combined with efficient caching, eliminating the need for a distinct back-end setup.
 
