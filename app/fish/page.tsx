@@ -14,7 +14,7 @@ import { onValue, ref } from 'firebase/database'
 import { DB } from '@/data/firebaseApp'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
-const fetcher = (url: string) => fetch(requestUrl).then((res) => res.json())
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Page() {
   const { data, error, isLoading } = useSWR(requestUrl, fetcher, { refreshInterval: 1000 })
