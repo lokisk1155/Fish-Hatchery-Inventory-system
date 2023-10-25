@@ -30,10 +30,9 @@ async function handleUpdate(url: string, { arg }) {
 interface Props {
   fishData: FishRecord | null
   close: () => void
-  author_email: string
 }
 
-export default function FishRecordForm({ author_email, fishData, close }: Props) {
+export default function FishRecordForm({ fishData, close }: Props) {
   const { trigger, isMutating } = useSWRMutation(requestUrl, fishData ? handleUpdate : handleCreate)
 
   const [formData, setFormData] = useState({
@@ -45,7 +44,6 @@ export default function FishRecordForm({ author_email, fishData, close }: Props)
     type: fishData?.type || 'tuna',
     location: fishData?.location || 'pond 1',
     lure: fishData?.lure || 'jigs',
-    author_email: author_email,
   })
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
