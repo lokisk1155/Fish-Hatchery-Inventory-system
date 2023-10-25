@@ -1,3 +1,5 @@
+# [Fish Hatchery Inventory System (live)](https://fish-inventory.vercel.app/)
+
 # 💻 Stack
 
 [next](https://nextjs.org/): Next.js utilizes server-side rendering (SSR) and static generation, optimizing application load times. Next was an easy choice for this project as it provides all in one capabilities for the requirements.
