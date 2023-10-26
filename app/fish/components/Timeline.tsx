@@ -1,4 +1,5 @@
 'use client'
+import Loading from '@/components/Loading'
 import { FishRecord } from 'app/api/fish/route'
 import { useModal } from 'app/ModalContext'
 import { Role, SessionUser } from 'interfaces/session'
