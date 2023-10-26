@@ -11,6 +11,7 @@ import FishCard from '../components/FishCard'
 import { FishRecord } from 'app/api/fish/route'
 import { DB } from '@/data/firebaseApp'
 import { onValue, ref } from 'firebase/database'
+import { arrayEquals } from 'utils/arrayEquals'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -24,12 +25,18 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const { data, error, isLoading, mutate } = useSWR(requestUrl, fetcher, {
     revalidateOnFocus: false,
+    refreshInterval: 5000,
   })
 
   const fishRef = ref(DB, '/fish')
   onValue(fishRef, (snapshot) => {
-    const innerData = snapshot.val() || { ...data }
-    mutate(innerData)
+    const innerData = snapshot.val()
+    if (innerData && !arrayEquals(innerData, data)) {
+      // unable to get mutate working thus far
+      // the server will log "hit" on realtime updates from firebases onValue function
+      console.log('HIT')
+      mutate(innerData)
+    }
   })
 
   if (isLoading || error) {
