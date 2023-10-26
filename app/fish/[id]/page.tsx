@@ -9,6 +9,8 @@ import { useSession } from 'next-auth/react'
 import { Role } from 'interfaces/session'
 import FishCard from '../components/FishCard'
 import { FishRecord } from 'app/api/fish/route'
+import { DB } from '@/data/firebaseApp'
+import { onValue, ref } from 'firebase/database'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -20,13 +22,23 @@ export default function Page({ params }: { params: { id: string } }) {
     // @ts-ignore [...nextAuth]/route.ts redirect -> jwt -> session gives user.role, server side understands but not client
     session.data && session.data.user && session.data.user.role === Role.ADMIN ? true : false
 
-  const { data, error, isLoading } = useSWR(requestUrl, fetcher, { refreshInterval: 1000 })
+  const { data, error, isLoading, mutate } = useSWR(requestUrl, fetcher, {
+    revalidateOnFocus: false,
+  })
+
+  const fishRef = ref(DB, '/fish')
+  onValue(fishRef, (snapshot) => {
+    const innerData = snapshot.val() || { ...data }
+    mutate(innerData)
+  })
 
   if (isLoading || error) {
     return <Loading />
   }
 
-  const fishIndexEntryList = data.filter(({ tracking_code }) => tracking_code === params.id)
+  const fishIndexEntryList: Array<FishRecord> = Object.values(data as Array<FishRecord>).filter(
+    ({ tracking_code }) => tracking_code === params.id
+  )
 
   const sortByMostRecent = fishIndexEntryList.sort(
     (a: FishRecord, b: FishRecord) => +new Date(b.date_caught) - +new Date(a.date_caught)

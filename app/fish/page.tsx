@@ -10,12 +10,16 @@ import useSWR from 'swr'
 import { FishRecord } from 'app/api/fish/route'
 import ModalContext from 'app/ModalContext'
 import FishRecordForm from './components/FishRecordForm'
+import { onValue, ref } from 'firebase/database'
+import { DB } from '@/data/firebaseApp'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Page() {
-  const { data, error, isLoading } = useSWR(requestUrl, fetcher, { refreshInterval: 1000 })
+  const { data, error, isLoading, mutate } = useSWR(requestUrl, fetcher, {
+    revalidateOnFocus: false,
+  })
   const session = useSession()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -30,6 +34,12 @@ export default function Page() {
     toggleModal()
   }
 
+  const fishRef = ref(DB, '/fish')
+  onValue(fishRef, (snapshot) => {
+    const innerData = snapshot.val() || { ...data }
+    mutate(innerData)
+  })
+
   return (
     <>
       <ModalContext.Provider value={{ toggleModal, setModalProps }}>
@@ -42,7 +52,7 @@ export default function Page() {
             <Loading />
           ) : (
             <Timeline
-              recordedFishData={data}
+              recordedFishData={Object.values(data)}
               user={
                 session && session.data && session.data.user
                   ? (session.data.user as SessionUser)
