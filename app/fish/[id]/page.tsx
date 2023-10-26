@@ -43,9 +43,7 @@ export default function Page({ params }: { params: { id: string } }) {
     return <Loading />
   }
 
-  const fishIndexEntryList: Array<FishRecord> = Object.values(data as Array<FishRecord>).filter(
-    ({ tracking_code }) => tracking_code === params.id
-  )
+  const fishIndexEntryList = data.filter(({ tracking_code }) => tracking_code === params.id)
 
   const sortByMostRecent = fishIndexEntryList.sort(
     (a: FishRecord, b: FishRecord) => +new Date(b.date_caught) - +new Date(a.date_caught)
