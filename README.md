@@ -10,8 +10,6 @@
 
 [swr](https://swr.vercel.app/): SWR operates on a strategy of initially returning cached data, then proceeding to fetch fresh data, and finally updating with the most recent data. This approach makes it a prime candidate for supporting real-time updates. Additionally, with its integrated caching mechanism, SWR eliminates the need for separate state management libraries.
 
-[starter](https://vercel.com/templates/next.js/tailwind-css-starter-blog) This tailwind css starter blog expedited the foundational frontend setup for our application. While Material-UI offers predefined components aligned with Google's Material Design guidelines, Tailwind's utility classes grant the flexibility to craft bespoke components, aligning with my personal development preferences.
-
 <br>
 
 # 📝 Architecture
