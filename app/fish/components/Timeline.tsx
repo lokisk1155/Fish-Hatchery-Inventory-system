@@ -65,9 +65,9 @@ export default function Timeline({ recordedFishData, user }: Props) {
 
   return (
     <div className="w-full items-start space-y-2 xl:gap-x-8 xl:space-y-0">
-      {filterButtonsData.map(({ state, label }) => (
+      {filterButtonsData.map(({ state, label }, index) => (
         <button
-          key={state}
+          key={index}
           className={`${
             toggle === state ? 'outline-none ring-2 ring-indigo-500' : ''
           } w-[200px] transition duration-300 ease-in-out transform bg-gradient-to-r py-3 px-6`}
@@ -86,9 +86,7 @@ export default function Timeline({ recordedFishData, user }: Props) {
             <XSquare />
           </button>
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
       <div className="flex flex-col items-center pt-5 w-full">
         {user && user.role === Role.ADMIN ? (
           <div className="w-full items-start">
