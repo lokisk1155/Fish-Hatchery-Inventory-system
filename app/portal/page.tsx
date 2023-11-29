@@ -1,9 +1,10 @@
+import LayoutWrapper from '@/components/LayoutWrapper'
 import { PageHeader } from '@/components/PageHeader'
 import { loginPageHeaderProps } from '@/data/pageHeader'
 import { authOptions } from 'app/api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth'
-import UserLoggedIn from './components/UserLoggedIn'
-import UserLoggedOut from './components/UserLoggedOut'
+import ActiveUser from './components/ActiveUser'
+import SignedOut from './components/SignedOut'
 
 export default async function Page() {
   const session = await getServerSession(authOptions)
@@ -16,9 +17,9 @@ export default async function Page() {
   }
 
   return (
-    <>
+    <LayoutWrapper>
       <PageHeader title={title} description={description} />
-      {authenticated ? <UserLoggedIn /> : <UserLoggedOut />}
-    </>
+      {authenticated ? <ActiveUser /> : <SignedOut />}
+    </LayoutWrapper>
   )
 }

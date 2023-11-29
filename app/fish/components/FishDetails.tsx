@@ -1,12 +1,12 @@
+import { fishImages } from '@/data/fishTypes'
 import { FishRecord } from 'app/api/fish/route'
-import { fishImages } from './TimelineCard'
 
 interface Props {
   fish: FishRecord
   count: number
 }
 
-export default function FishCard({ fish, count }: Props) {
+export default function FishDetails({ fish, count }: Props) {
   const fishDetails = [
     { label: 'Type', value: fish.type },
     { label: 'Length', value: `${fish.total_length} cm` },

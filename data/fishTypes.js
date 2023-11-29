@@ -27,3 +27,12 @@ export const fishFormFields = [
     key: 'tracking_code',
   },
 ]
+
+export const fishImages = {
+  tuna: '/static/images/tuna.png',
+  barracuda: '/static/images/barracuda.png',
+  perch: '/static/images/perch.png',
+  salmon: '/static/images/salmon.png',
+  catfish: '/static/images/catfish.png',
+  bass: '/static/images/bass.png',
+}
