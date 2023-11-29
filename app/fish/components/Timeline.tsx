@@ -41,7 +41,7 @@ export default function Timeline({ recordedFishData, user }: Props) {
     }
   })
 
-  let sortedDataMapping = {
+  const sortedDataMapping = {
     [ToggleState.RECENT]: [...recordedFishData].sort(
       (a, b) => +new Date(b.date_caught) - +new Date(a.date_caught)
     ),
