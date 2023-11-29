@@ -47,7 +47,7 @@ export default function Page() {
           ) : (
             <Timeline
               recordedFishData={data}
-              // using an extra property on next auth's session - made custom interface
+              /* added user.role as an extra property on next auth's session */
               user={session?.user ? (session?.user as SessionUser) : null}
             />
           )}
