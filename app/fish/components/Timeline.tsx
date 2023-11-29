@@ -1,7 +1,9 @@
 'use client'
+import { fishImages } from '@/data/fishTypes'
 import { FishRecord } from 'app/api/fish/route'
 import { useModal } from 'app/ModalContext'
 import { Role, SessionUser } from 'interfaces/session'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import TimelineCard from './TimelineCard'
 
@@ -17,6 +19,10 @@ enum ToggleState {
 }
 
 export default function Timeline({ recordedFishData, user }: Props) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const fishType = searchParams.get('type')
   const { toggleModal } = useModal()
 
   const [toggle, setToggle] = useState<ToggleState>(ToggleState.RECENT)
@@ -30,7 +36,7 @@ export default function Timeline({ recordedFishData, user }: Props) {
     }
   })
 
-  const sortedDataMapping = {
+  let sortedDataMapping = {
     [ToggleState.RECENT]: [...recordedFishData].sort(
       (a, b) => +new Date(b.date_caught) - +new Date(a.date_caught)
     ),
@@ -42,11 +48,20 @@ export default function Timeline({ recordedFishData, user }: Props) {
     ),
   }
 
+  if (fishType) {
+    sortedDataMapping[toggle] = sortedDataMapping[toggle].filter((fish) => fish.type === fishType)
+  }
+
   const filterButtonsData = [
     { state: ToggleState.RECENT, label: 'most recent' },
     { state: ToggleState.DATED, label: 'most dated' },
     { state: ToggleState.POPULAR, label: 'most caught' },
   ]
+
+  const removeSearchParams = (e) => {
+    e.preventDefault()
+    router.replace(pathname)
+  }
 
   return (
     <div className="w-full items-start space-y-2 xl:gap-x-8 xl:space-y-0">
@@ -61,6 +76,16 @@ export default function Timeline({ recordedFishData, user }: Props) {
           {label}
         </button>
       ))}
+      {fishImages[fishType] ? (
+        <button
+          className={`w-[200px] transition duration-300 ease-in-out transform bg-gradient-to-gray py-3 px-6`}
+          onClick={removeSearchParams}
+        >
+          {`${fishType} X`}
+        </button>
+      ) : (
+        ''
+      )}
       <div className="flex flex-col items-center pt-8 w-full">
         {user && user.role === Role.ADMIN ? (
           <div className="w-full items-start">
