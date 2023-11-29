@@ -17,7 +17,7 @@ export default function Page({ params }: { params: { id: string } }) {
     refreshInterval: 10000,
   })
 
-  if (isLoading || error) {
+  if (isLoading) {
     return <Loading />
   }
 
@@ -29,20 +29,18 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const fishIndexData = sortByMostRecent[0]
 
+  if (error || !fishIndexData) {
+    return <NotFound />
+  }
+
   return (
     <>
-      {fishIndexData ? (
-        <>
-          <FishBackButton />
-          <PageHeader title={fishIndexData.name} description={fishIndexData.tracking_code} />
-          <div className="w-full h-full flex flex-col mb-20 justify-evenly md:flex-row">
-            <FishDetails fish={fishIndexData} count={fishIndexEntryList.length} />
-            <FishGraph fishIndexEntryList={fishIndexEntryList} />
-          </div>
-        </>
-      ) : (
-        <NotFound />
-      )}
+      <FishBackButton />
+      <PageHeader title={fishIndexData.name} description={fishIndexData.tracking_code} />
+      <div className="w-full h-full flex flex-col mb-20 justify-evenly md:flex-row">
+        <FishDetails fish={fishIndexData} count={fishIndexEntryList.length} />
+        <FishGraph fishIndexEntryList={fishIndexEntryList} />
+      </div>
     </>
   )
 }

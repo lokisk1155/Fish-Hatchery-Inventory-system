@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import Loading from '@/components/Loading'
 import Timeline from './components/Timeline'
-import { SessionUser } from 'interfaces/session'
 import { PageHeader } from '@/components/PageHeader'
 import { fishPageHeaderProps } from '@/data/pageHeader'
 import { useSession } from 'next-auth/react'
@@ -10,6 +9,7 @@ import useSWR from 'swr'
 import { FishRecord } from 'app/api/fish/route'
 import ModalContext from 'app/ModalContext'
 import FishRecordForm from './components/FishRecordForm'
+import { SessionUser } from 'interfaces/session'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -20,7 +20,7 @@ export default function Page() {
     refreshInterval: 10000,
   })
 
-  const session = useSession()
+  const { data: session } = useSession()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalProps, setModalProps] = useState<FishRecord>()
@@ -47,7 +47,8 @@ export default function Page() {
           ) : (
             <Timeline
               recordedFishData={data}
-              user={session.data && session.data.user ? (session.data.user as SessionUser) : null}
+              // using an extra property on next auth's session - made custom interface
+              user={session?.user ? (session?.user as SessionUser) : null}
             />
           )}
         </div>

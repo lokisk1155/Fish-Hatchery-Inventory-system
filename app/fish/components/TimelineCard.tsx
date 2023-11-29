@@ -42,8 +42,8 @@ export default function TimelineCard({ fishData, href, role }: Props) {
         />
         <div className="flex flex-col">
           <h2 className="text-xl font-bold mb-2">{fishData.name.toUpperCase()}</h2>
-          {dataPoints.map(({ label, value, extraClass = 'text-sm' }) => (
-            <p className={extraClass}>
+          {dataPoints.map(({ label, value, extraClass = 'text-sm' }, index) => (
+            <p key={index} className={extraClass}>
               <strong className="font-semibold">{label}:</strong> {value}
             </p>
           ))}

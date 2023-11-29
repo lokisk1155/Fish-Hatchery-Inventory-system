@@ -70,18 +70,18 @@ export default function FishRecordForm({ fishData, close }: Props) {
       onSubmit={handleSubmit}
       className="flex flex-col items-start justify-evenly  text-black p-4 min-w-[300px]"
     >
-      <div className="flex flex-row items-center justify-between w-full">
+      <header className="flex flex-row items-center justify-between w-full">
         <h1>{fishData ? 'Update Fish Record' : 'Create Fish Record'}</h1>
         <button type="button" onClick={handleClose}>
           x
         </button>
-      </div>
+      </header>
 
       {fishFormFields.map((field, index) => (
         <div key={index} className="w-full flex flex-col pt-4">
-          {field.label && <span>{field.label}</span>}
+          {field.label && <label htmlFor={`${index}`}>{field.label}</label>}
           <input
-            type={field.type}
+            id={`${index}`}
             placeholder={field.placeholder}
             required
             value={formData[field.key]}
@@ -91,18 +91,20 @@ export default function FishRecordForm({ fishData, close }: Props) {
         </div>
       ))}
       <div className="w-full flex flex-col pt-4">
-        <span>{'Date Caught:'}</span>
+        <label htmlFor="date-caught">{'Date Caught:'}</label>
         <input
+          id="date-caught"
           type="datetime-local"
           placeholder="date"
           required
           value={formatToDateTime(formData.date_caught)}
-          onChange={(e) => setFormData({ ...formData, ['date_caught']: e.target.value })}
+          onChange={(e) => setFormData({ ...formData, date_caught: e.target.value })}
           className="w-full border border-gray-300 rounded-md"
         />
       </div>
-      <span>Location:</span>
+      <label htmlFor="location">Location:</label>
       <select
+        id="location"
         required
         value={formData.location}
         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
@@ -115,8 +117,9 @@ export default function FishRecordForm({ fishData, close }: Props) {
         ))}
       </select>
 
-      <span>Type:</span>
+      <label htmlFor="fish-type">Type:</label>
       <select
+        id="fish-type"
         required
         value={formData.type}
         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
@@ -129,8 +132,9 @@ export default function FishRecordForm({ fishData, close }: Props) {
         ))}
       </select>
 
-      <span>Lure:</span>
+      <label htmlFor="lure-type">Lure:</label>
       <select
+        id="lure-type"
         required
         value={formData.lure}
         onChange={(e) => setFormData({ ...formData, lure: e.target.value })}

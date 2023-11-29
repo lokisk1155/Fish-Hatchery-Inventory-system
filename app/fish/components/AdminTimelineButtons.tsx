@@ -4,7 +4,6 @@ import { useModal } from 'app/ModalContext'
 import { MouseEvent } from 'react'
 import { FileEdit } from 'lucide-react'
 import DeleteRecord from './DeleteRecord'
-import { useSession } from 'next-auth/react'
 
 interface Props {
   fishData: FishRecord
@@ -12,7 +11,6 @@ interface Props {
 
 export default function AdminTimelineButtons({ fishData }: Props) {
   const { toggleModal, setModalProps } = useModal()
-  const session = useSession()
 
   const handleUpdate = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault
