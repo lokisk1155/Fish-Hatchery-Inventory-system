@@ -48,7 +48,7 @@ export default function Timeline({ recordedFishData, user }: Props) {
     ),
   }
 
-  if (fishType) {
+  if (fishImages[fishType]) {
     sortedDataMapping[toggle] = sortedDataMapping[toggle].filter((fish) => fish.type === fishType)
   }
 
