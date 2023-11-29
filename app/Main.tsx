@@ -1,3 +1,4 @@
+import LayoutWrapper from '@/components/LayoutWrapper'
 import CustomLink from '@/components/Link'
 import { PageHeader } from '@/components/PageHeader'
 import { headerNavLinks } from '@/data/headerNavLinks'
@@ -5,7 +6,7 @@ import siteMetadata from '@/data/siteMetadata'
 
 export default function Home() {
   return (
-    <>
+    <LayoutWrapper>
       <PageHeader
         title={`${siteMetadata.title} Dashboard`}
         description={siteMetadata.description}
@@ -23,6 +24,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
+    </LayoutWrapper>
   )
 }

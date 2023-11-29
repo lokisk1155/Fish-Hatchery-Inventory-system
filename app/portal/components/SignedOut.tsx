@@ -14,7 +14,7 @@ export default function SignedOut() {
 
     But for a simple demo of this application, this is an optimal solution as security is not a high concern.
 
-    */
+  */
 
   const handleSignInAdmin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

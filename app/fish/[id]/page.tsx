@@ -7,6 +7,7 @@ import NotFound from 'app/not-found'
 import useSWR from 'swr'
 import { FishRecord } from 'app/api/fish/route'
 import FishDetails from '../components/FishDetails'
+import LayoutWrapper from '@/components/LayoutWrapper'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -34,13 +35,13 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <>
+    <LayoutWrapper>
       <FishBackButton />
       <PageHeader title={fishIndexData.name} description={fishIndexData.tracking_code} />
       <div className="w-full h-full flex flex-col mb-20 justify-evenly md:flex-row">
         <FishDetails fish={fishIndexData} count={fishIndexEntryList.length} />
         <FishGraph fishIndexEntryList={fishIndexEntryList} />
       </div>
-    </>
+    </LayoutWrapper>
   )
 }

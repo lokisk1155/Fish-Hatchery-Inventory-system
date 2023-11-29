@@ -10,6 +10,7 @@ import { FishRecord } from 'app/api/fish/route'
 import ModalContext from 'app/ModalContext'
 import FishRecordForm from './components/FishRecordForm'
 import { SessionUser } from 'interfaces/session'
+import LayoutWrapper from '@/components/LayoutWrapper'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -35,7 +36,7 @@ export default function Page() {
   }
 
   return (
-    <>
+    <LayoutWrapper>
       <ModalContext.Provider value={{ toggleModal, setModalProps }}>
         <PageHeader
           title={fishPageHeaderProps.title}
@@ -68,6 +69,6 @@ export default function Page() {
           </div>
         )}
       </ModalContext.Provider>
-    </>
+    </LayoutWrapper>
   )
 }

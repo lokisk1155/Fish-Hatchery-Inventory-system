@@ -1,3 +1,4 @@
+import LayoutWrapper from '@/components/LayoutWrapper'
 import { PageHeader } from '@/components/PageHeader'
 import { loginPageHeaderProps } from '@/data/pageHeader'
 import { authOptions } from 'app/api/auth/[...nextauth]/options'
@@ -16,9 +17,9 @@ export default async function Page() {
   }
 
   return (
-    <>
+    <LayoutWrapper>
       <PageHeader title={title} description={description} />
       {authenticated ? <ActiveUser /> : <SignedOut />}
-    </>
+    </LayoutWrapper>
   )
 }
