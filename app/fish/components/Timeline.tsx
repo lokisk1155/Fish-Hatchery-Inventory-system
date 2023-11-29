@@ -1,8 +1,11 @@
 'use client'
+import { fishImages } from '@/data/fishTypes'
 import { FishRecord } from 'app/api/fish/route'
 import { useModal } from 'app/ModalContext'
 import { Role, SessionUser } from 'interfaces/session'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+import { XSquare } from 'lucide-react'
 import TimelineCard from './TimelineCard'
 
 interface Props {
@@ -18,6 +21,14 @@ enum ToggleState {
 
 export default function Timeline({ recordedFishData, user }: Props) {
   const { toggleModal } = useModal()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const fishType = searchParams.get('type')
+  const removeSearchParams = (e) => {
+    e.preventDefault()
+    router.replace(pathname)
+  }
 
   const [toggle, setToggle] = useState<ToggleState>(ToggleState.RECENT)
   const map: { [key: string]: number } = {}
@@ -48,11 +59,15 @@ export default function Timeline({ recordedFishData, user }: Props) {
     { state: ToggleState.POPULAR, label: 'most caught' },
   ]
 
+  if (fishImages[fishType]) {
+    sortedDataMapping[toggle] = sortedDataMapping[toggle].filter((fish) => fish.type === fishType)
+  }
+
   return (
     <div className="w-full items-start space-y-2 xl:gap-x-8 xl:space-y-0">
-      {filterButtonsData.map(({ state, label }) => (
+      {filterButtonsData.map(({ state, label }, index) => (
         <button
-          key={state}
+          key={index}
           className={`${
             toggle === state ? 'outline-none ring-2 ring-indigo-500' : ''
           } w-[200px] transition duration-300 ease-in-out transform bg-gradient-to-r py-3 px-6`}
@@ -61,7 +76,18 @@ export default function Timeline({ recordedFishData, user }: Props) {
           {label}
         </button>
       ))}
-      <div className="flex flex-col items-center pt-8 w-full">
+      {fishImages[fishType] ? (
+        <div className="w-full min-h-[75px pt-5">
+          <button
+            className={`w-[200px] outline-none ring-2 ring-indigo-500 transition duration-300 ease-in-out transform bg-gradient-to-gray py-3 px-6 flex justify-evenly items-center`}
+            onClick={removeSearchParams}
+          >
+            <span>{`type: ${fishType?.toUpperCase()}`}</span>
+            <XSquare />
+          </button>
+        </div>
+      ) : null}
+      <div className="flex flex-col items-center pt-5 w-full">
         {user && user.role === Role.ADMIN ? (
           <div className="w-full items-start">
             <button
