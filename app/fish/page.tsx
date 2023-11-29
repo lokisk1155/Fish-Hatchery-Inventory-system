@@ -10,18 +10,16 @@ import useSWR from 'swr'
 import { FishRecord } from 'app/api/fish/route'
 import ModalContext from 'app/ModalContext'
 import FishRecordForm from './components/FishRecordForm'
-import { onValue, ref } from 'firebase/database'
-import { DB } from '@/data/firebaseApp'
-import { arrayEquals } from 'utils/arrayEquals'
 
 const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Page() {
-  const { data, error, isLoading, mutate } = useSWR(requestUrl, fetcher, {
+  const { data, error, isLoading } = useSWR(requestUrl, fetcher, {
     revalidateOnFocus: false,
-    refreshInterval: 5000,
+    refreshInterval: 10000,
   })
+
   const session = useSession()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,17 +34,6 @@ export default function Page() {
     toggleModal()
   }
 
-  const fishRef = ref(DB, '/fish')
-  onValue(fishRef, (snapshot) => {
-    const innerData = snapshot.val()
-    if (innerData && !arrayEquals(innerData, data)) {
-      // unable to get mutate working thus far
-      // the server will log "hit" on realtime updates from firebases onValue function
-      console.log('HIT')
-      mutate(innerData)
-    }
-  })
-
   return (
     <>
       <ModalContext.Provider value={{ toggleModal, setModalProps }}>
@@ -59,12 +46,8 @@ export default function Page() {
             <Loading />
           ) : (
             <Timeline
-              recordedFishData={data || []}
-              user={
-                session && session.data && session.data.user
-                  ? (session.data.user as SessionUser)
-                  : null
-              }
+              recordedFishData={data}
+              user={session.data && session.data.user ? (session.data.user as SessionUser) : null}
             />
           )}
         </div>

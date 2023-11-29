@@ -48,15 +48,15 @@ export default function FishRecordForm({ fishData, close }: Props) {
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const sanatizedData = {
+    const submitData = {
       ...formData,
     }
 
     if (fishData && fishData.id) {
-      sanatizedData['id'] = fishData.id
+      submitData['id'] = fishData.id
     }
 
-    trigger(sanatizedData)
+    trigger(submitData)
     close()
   }
 

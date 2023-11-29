@@ -3,7 +3,7 @@ import { Role } from 'interfaces/session'
 import { signIn } from 'next-auth/react'
 import { MouseEvent } from 'react'
 
-export default function UserLoggedOut() {
+export default function SignedOut() {
   const handleSignInAdmin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     await signIn('google', {
