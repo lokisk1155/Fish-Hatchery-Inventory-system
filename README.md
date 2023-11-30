@@ -119,12 +119,4 @@ yarn dev
           <br />
           <b>lokisk1155</b>
         </a>
-        <br />
-        <a href="https://github.com/lokisk1155/Fish-Hatchery-Inventory-system/commits?author=lokisk1155" title="Contributions" spellcheck="false">
-          23 contributions
-        </a>
       </td></table>
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [**MIT License**](https://github.com/lokisk1155/Fish-Hatchery-Inventory-system/blob/main/LICENSE) file for details.
