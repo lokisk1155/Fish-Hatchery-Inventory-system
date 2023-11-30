@@ -3,7 +3,7 @@ import { fishFormFields, fishLures, fishTypes } from '@/data/fishTypes'
 import { FishRecord } from 'app/api/fish/route'
 import { MouseEvent, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
-import { handleCreate, handleUpdate } from 'triggers/fish'
+import { handleCreate, handleUpdate } from 'utils/triggers'
 import { formatToDateTime } from 'utils/formatToDateTime'
 
 interface Props {

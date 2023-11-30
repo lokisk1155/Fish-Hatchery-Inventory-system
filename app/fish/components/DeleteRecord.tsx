@@ -1,7 +1,7 @@
 'use client'
 import useSWRMutation from 'swr/mutation'
 import { XSquare } from 'lucide-react'
-import { handleDelete } from 'triggers/fish'
+import { handleDelete } from 'utils/triggers'
 
 interface Props {
   id: string
