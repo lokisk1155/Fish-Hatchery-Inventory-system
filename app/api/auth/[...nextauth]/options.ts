@@ -40,7 +40,6 @@ export const authOptions = {
         data from the database, enhancing security and integrity of the user's session
 
       */
-     
       session.user.role = token.role
       return session
     },
