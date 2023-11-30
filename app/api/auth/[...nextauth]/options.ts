@@ -18,7 +18,6 @@ export const authOptions = {
       if (role) {
         tempStorage.set(0, role)
       }
-
       return `${baseUrl}/portal`
     },
     async jwt({ token }) {

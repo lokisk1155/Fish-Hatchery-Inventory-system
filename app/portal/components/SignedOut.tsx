@@ -2,6 +2,7 @@
 import { Role } from 'interfaces/session'
 import { signIn } from 'next-auth/react'
 import { MouseEvent } from 'react'
+import toast from 'react-hot-toast'
 
 export default function SignedOut() {
   /* 
@@ -18,16 +19,26 @@ export default function SignedOut() {
 
   const handleSignInAdmin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    await signIn('google', {
-      callbackUrl: `${window.location.origin}/api/auth/callback/google?role=${Role.ADMIN}`,
-    })
+    try {
+      await signIn('google', {
+        callbackUrl: `${window.location.origin}/api/auth/callback/google?role=${Role.ADMIN}`,
+      })
+      toast.success('the police are on their way')
+    } catch {
+      toast.error('this is all my fault')
+    }
   }
 
   const handleSignInUser = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    await signIn('google', {
-      callbackUrl: `${window.location.origin}/api/auth/callback/google?role=${Role.USER}`,
-    })
+    try {
+      await signIn('google', {
+        callbackUrl: `${window.location.origin}/api/auth/callback/google?role=${Role.USER}`,
+      })
+      toast.success('the police are on their way')
+    } catch {
+      toast.error('this is all my fault')
+    }
   }
 
   return (

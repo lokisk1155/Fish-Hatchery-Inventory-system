@@ -12,7 +12,6 @@ import { fetcher } from 'utils/fetcher'
 
 export default function Page({ params }: { params: { id: string } }) {
   const { data, error, isLoading } = useSWR('api/fish', fetcher, {
-    revalidateOnFocus: false,
     refreshInterval: 10000,
   })
 
