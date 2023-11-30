@@ -36,8 +36,8 @@ export default function Page() {
   }
 
   return (
-    <LayoutWrapper>
-      <ModalContext.Provider value={{ toggleModal, setModalProps }}>
+    <ModalContext.Provider value={{ toggleModal, setModalProps }}>
+      <LayoutWrapper>
         <PageHeader
           title={fishPageHeaderProps.title}
           description={fishPageHeaderProps.description}
@@ -68,7 +68,7 @@ export default function Page() {
             </div>
           </div>
         )}
-      </ModalContext.Provider>
-    </LayoutWrapper>
+      </LayoutWrapper>
+    </ModalContext.Provider>
   )
 }
