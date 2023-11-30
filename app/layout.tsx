@@ -5,6 +5,7 @@ import { Space_Grotesk } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
+import toast, { Toaster } from 'react-hot-toast'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
@@ -78,6 +79,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <SessionProvider session={session}>
             <SectionContainer>
               <div className="flex h-screen flex-col justify-between font-sans">
+                <Toaster />
                 <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
                   <main className="mb-auto">{children}</main>
                 </SearchProvider>
