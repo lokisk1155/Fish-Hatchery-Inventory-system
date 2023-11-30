@@ -3,7 +3,7 @@ import CustomLink from '@/components/Link'
 import { fishImages } from '@/data/fishTypes'
 import { FishRecord } from 'app/api/fish/route'
 import { Role } from 'interfaces/session'
-import AdminTimelineButtons from './AdminTimelineButtons'
+import AdminButtons from './AdminButtons'
 
 interface Props {
   fishData: FishRecord
@@ -49,7 +49,7 @@ export default function TimelineCard({ fishData, href, role }: Props) {
           ))}
         </div>
       </CustomLink>
-      {role === Role.ADMIN && <AdminTimelineButtons fishData={fishData} />}
+      {role === Role.ADMIN && <AdminButtons fishData={fishData} />}
     </div>
   )
 }
