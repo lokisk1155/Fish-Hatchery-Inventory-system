@@ -11,12 +11,10 @@ import ModalContext from 'app/ModalContext'
 import FishRecordForm from './components/FishRecordForm'
 import { SessionUser } from 'interfaces/session'
 import LayoutWrapper from '@/components/LayoutWrapper'
-
-const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+import { fetcher } from 'utils/fetcher'
 
 export default function Page() {
-  const { data, error, isLoading } = useSWR(requestUrl, fetcher, {
+  const { data, error, isLoading } = useSWR('api/fish', fetcher, {
     revalidateOnFocus: false,
     refreshInterval: 10000,
   })

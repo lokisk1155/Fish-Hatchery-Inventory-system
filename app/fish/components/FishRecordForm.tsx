@@ -3,29 +3,8 @@ import { fishFormFields, fishLures, fishTypes } from '@/data/fishTypes'
 import { FishRecord } from 'app/api/fish/route'
 import { MouseEvent, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
+import { handleCreate, handleUpdate } from 'triggers/fish'
 import { formatToDateTime } from 'utils/formatToDateTime'
-
-const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
-
-async function handleCreate(url: string, { arg }) {
-  return await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(arg),
-  })
-}
-
-async function handleUpdate(url: string, { arg }) {
-  return await fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(arg),
-  })
-}
 
 interface Props {
   fishData: FishRecord | null
@@ -33,7 +12,7 @@ interface Props {
 }
 
 export default function FishRecordForm({ fishData, close }: Props) {
-  const { trigger, isMutating } = useSWRMutation(requestUrl, fishData ? handleUpdate : handleCreate)
+  const { trigger, isMutating } = useSWRMutation('api/fish', fishData ? handleUpdate : handleCreate)
 
   const [formData, setFormData] = useState({
     name: fishData?.name || '',
