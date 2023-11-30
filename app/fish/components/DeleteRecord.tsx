@@ -1,25 +1,14 @@
 'use client'
 import useSWRMutation from 'swr/mutation'
 import { XSquare } from 'lucide-react'
-
-async function handleClick(url: string, { arg }) {
-  return await fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(arg),
-  })
-}
-
-const requestUrl = process.env.NEXT_PUBLIC_URL + 'api/fish'
+import { handleDelete } from 'utils/triggers'
 
 interface Props {
   id: string
 }
 
 export default function DeleteRecord({ id }: Props) {
-  const { trigger, isMutating } = useSWRMutation(requestUrl, handleClick)
+  const { trigger, isMutating } = useSWRMutation('api/fish', handleDelete)
 
   return (
     <button

@@ -1,12 +1,4 @@
-export interface Creator {
-  name: string
-  avatar: string
-  occupation: string
-  company: string
-  linkedin: string
-  github: string
-}
-export const creator: Creator = {
+export const creator = {
   name: 'Shawn Mallon',
   avatar: '/static/images/ocean.jpeg',
   occupation: 'Software Developer',
